@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 
 mongoose
-  .connect("mongodb://localhost:27017/JobSearchApp")
+  .connect(process.env.DB_URI)
   .then(() => {
     console.log("DB connected");
   })

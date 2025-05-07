@@ -25,7 +25,7 @@ const jobSchema = new mongoose.Schema({
     type:String,
     required:true
  },
- author: {
+ user: {
    type: mongoose.Schema.ObjectId,
    ref: "User",
  },
@@ -33,6 +33,10 @@ const jobSchema = new mongoose.Schema({
    type:[mongoose.Schema.Types.ObjectId] ,
    ref: "Comment",
  },
+});
+
+jobSchema.pre("save", async function () {
+  this.title = this.title.toLowerCase();
 });
 
 const jobModel = mongoose.model("JobDetails", jobSchema);
