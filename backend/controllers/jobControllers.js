@@ -104,7 +104,7 @@ const getAllJobs = (req, res) => {
 const getJobByTitle = async (req, res) => {
   console.log(req.params.title);
    await jobModel
-    .findOne({ title: (req.params.title).toLowerCase() })
+    .find({ title: (req.params.title).toLowerCase() })
     .then((result) => {
       res.status(200).json({
         success: true,
