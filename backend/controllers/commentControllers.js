@@ -77,7 +77,7 @@ const deleteComment = (req, res) => {
 };
 
 const updateComment = (req, res) => {
-  const {comment} = req.body;
+  const { comment } = req.body;
   commentModel
     .findOneAndUpdate(
       { _id: req.params.commentId },
@@ -87,7 +87,18 @@ const updateComment = (req, res) => {
         },
       }
     )
-    .exec();
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        message: "the comment has been updated",
+      });
+    })
+    .catch((err) => {
+      res.status(400).json({
+        success: false,
+        message: "the comment not found",
+      });
+    });
 
   // jobModel
   //   .findOne({ _id: req.params.jobId })
