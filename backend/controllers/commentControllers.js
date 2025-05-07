@@ -3,11 +3,11 @@ const commentModel = require("../models/commentSchema");
 const jobModel = require("../models/jobSchema");
 
 const createNewComment = (req, res) => {
-  const token = req.token.userID;  
+  const token = req.token.userID;
   const { comment } = req.body;
   const newComment = new commentModel({
     comment,
-    commenter :token,
+    commenter: token,
   });
   newComment
     .save()
@@ -35,8 +35,6 @@ const createNewComment = (req, res) => {
             err: err.message,
           });
         });
-
-  
     })
     .catch((err) => {
       res.status(500).json({
@@ -47,8 +45,82 @@ const createNewComment = (req, res) => {
     });
 };
 
+const deleteComment = (req, res) => {
+  jobModel
+    .findOne({ _id: req.params.jobId })
+    .then(async (result) => {
+      const deleteCommentArr = result.comments.filter((ele, i) => {
+        return ele != req.params.commentId;
+      });
+      await jobModel
+        .findOneAndUpdate(
+          { _id: req.params.jobId },
+          {
+            $set: {
+              comments: deleteCommentArr,
+            },
+          }
+        )
+        .exec();
+      commentModel.findOneAndDelete({ _id: req.params.commentId }).exec();
+      res.status(200).json({
+        success: true,
+        message: "The comment has been deleted",
+      });
+    })
+    .catch((err) => {
+      res.status(400).json({
+        success: false,
+        message: `can not find the comment ${err.message}`,
+      });
+    });
+};
 
+const updateComment = (req, res) => {
+  const {comment} = req.body;
+  commentModel
+    .findOneAndUpdate(
+      { _id: req.params.commentId },
+      {
+        $set: {
+          comment: comment,
+        },
+      }
+    )
+    .exec();
+
+  // jobModel
+  //   .findOne({ _id: req.params.jobId })
+  //   .then(async (result) => {
+  //     const deleteCommentArr = result.comments.filter((ele, i) => {
+  //       return ele != req.params.commentId;
+  //     });
+  //     await jobModel
+  //       .findOneAndUpdate(
+  //         { _id: req.params.jobId },
+  //         {
+  //           $set: {
+  //             comments: deleteCommentArr,
+  //           },
+  //         }
+  //       )
+  //       .exec();
+  //     commentModel.findOneAndDelete({ _id: req.params.commentId }).exec();
+  //     res.status(200).json({
+  //       success: true,
+  //       message: "The comment has been deleted",
+  //     });
+  //   })
+  //   .catch((err) => {
+  //     res.status(400).json({
+  //       success: false,
+  //       message: `can not find the comment ${err.message}`,
+  //     });
+  //   });
+};
 
 module.exports = {
   createNewComment,
+  deleteComment,
+  updateComment,
 };

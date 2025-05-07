@@ -1,5 +1,9 @@
 const express = require("express");
-const { createNewComment } = require("../controllers/commentControllers");
+const {
+  createNewComment,
+  deleteComment,
+  updateComment,
+} = require("../controllers/commentControllers");
 const authMiddlewares = require("../middleware/auth");
 const authzMiddlewares = require("../middleware/authz");
 
@@ -12,10 +16,18 @@ commentRouter.post(
   createNewComment
 );
 
-// commentRouter.delete(
-//     "/:jobId/comment/",
-//     authMiddlewares,
-//     authzMiddlewares("DELETE_COMMENTS"),
-//     deleteComment
-//   );
+commentRouter.delete(
+  "/deleteComment/:jobId/:commentId/comment",
+  authMiddlewares,
+  authzMiddlewares("DELETE_COMMENTS"),
+  deleteComment
+);
+
+commentRouter.put(
+  "/updateComment/:jobId/:commentId/comment",
+  authMiddlewares,
+  authzMiddlewares("UPDATE_COMMENTS"),
+  updateComment
+);
+
 module.exports = commentRouter;
