@@ -1,11 +1,24 @@
-import React from 'react'
-import "./App.css";
-const App = () => {
-  return (
-   <div className="App">
-      <h1>Hello World!</h1>
-    </div>
-  )
-}
+import React, { useState, createContext } from "react";
+import Navbar from "./components/navigation/Navigation";
+import Register from "./components/Register/Register";
 
-export default App
+import "./App.css";
+
+export const userContext = createContext();
+const App = () => {
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  return (
+    <>
+      <userContext.Provider value={{ token, setToken }}>
+        <div className="App">
+          <Navbar />
+        </div>
+        <> <Register/></>
+       
+      </userContext.Provider>
+      
+    </>
+  );
+};
+
+export default App;
