@@ -103,8 +103,8 @@ const getAllJobs = (req, res) => {
 
 const getJobByTitle = async (req, res) => {
   console.log(req.params.title);
-   await jobModel
-    .find({ title: (req.params.title).toLowerCase() })
+  await jobModel
+    .find({ title: req.params.title.toLowerCase() })
     .then((result) => {
       res.status(200).json({
         success: true,
@@ -198,6 +198,49 @@ const deleteJobByUser = async (req, res) => {
   }
 };
 
+const getJobByFilter = async (req, res) => {
+  const a = await jobModel
+    .find({
+      $or: [
+        { title: req.params.criteria.toLowerCase() },
+        { typeOfJob: req.params.criteria.toLowerCase() },
+        { locationWork: req.params.criteria.toLowerCase() },
+      ],
+    })
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        message: `Get the jobs based on ${req.params.criteria}`,
+        result : result
+      });
+    })
+    .catch((err) => {
+        res.status(400).json({
+            success: false,
+            message: `Can not find the jobs based on ${req.params.criteria}`,
+          });
+    });
+  //    const a = await jobModel.find($or: [{ title: (req.params.title).toLowerCase() } ,{typeOfJob: (req.params.title).toLowerCase()}, {locationWork: (req.params.title).toLowerCase()}]).exec()
+  //    console.log(a)
+  // console.log(req.params.typeOfJob);
+  // await jobModel
+  //  .find({ typeOfJob: (req.params.typeOfJob).toLowerCase() })
+  //  .then((result) => {
+  //    res.status(200).json({
+  //      success: true,
+  //      message: `The Job ${result.typeOfJob}`,
+  //      jobs: result,
+  //    });
+  //  })
+  //  .catch((err) => {
+  //    res.status(500).json({
+  //      success: false,
+  //      message: "Server Error",
+  //      err: err.message,
+  //    });
+  //  });
+};
+
 // const createNewComment = (req , res)=>{
 // const {articleId} = req.params.articleId
 
@@ -211,4 +254,5 @@ module.exports = {
   updateJobById,
   deleteJobById,
   deleteJobByUser,
+  getJobByFilter,
 };
