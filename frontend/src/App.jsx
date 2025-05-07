@@ -1,6 +1,6 @@
 import React, { useState, createContext } from "react";
-import Navbar from "./components/navigation/Navigation";
-import Register from "./components/Register/Register";
+import Navigation from "./components/navigation/Navigation";
+import Job from "./components/jobs/Job";
 
 import "./App.css";
 
@@ -11,12 +11,12 @@ const App = () => {
     <>
       <userContext.Provider value={{ token, setToken }}>
         <div className="App">
-          <Navbar />
+         <Navigation/>
         </div>
-        <> <Register/></>
-       
+        <>
+        <Job/>
+        </>
       </userContext.Provider>
-      
     </>
   );
 };
