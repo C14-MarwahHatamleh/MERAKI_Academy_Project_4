@@ -24,6 +24,9 @@ const Navigation = () => {
         >
           <span class="navbar-toggler-icon"></span>
         </button> */}
+        
+        
+        
         <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
           <span className="logo">
             Find<span className="ly">ly</span>{" "}
@@ -67,5 +70,7 @@ const Navigation = () => {
     </>
   );
 };
+
+
 
 export default Navigation;
