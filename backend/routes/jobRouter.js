@@ -16,7 +16,7 @@ const jobRouter = express.Router();
 
 jobRouter.post("/", authMiddlewares ,authzMiddlewares("CREATE_JOBS"), createNewJob);
 jobRouter.get("/", authMiddlewares ,getAllJobs);
-jobRouter.get("/:id", getJobById);
+jobRouter.get("/byId/:id", getJobById);
 jobRouter.get("/search/:title", getJobByTitle);
 jobRouter.get("/filter/:criteria", getJobByFilter);
 jobRouter.put("/update/:id",authMiddlewares ,authzMiddlewares("UPDATE_JOBS"), updateJobById);
