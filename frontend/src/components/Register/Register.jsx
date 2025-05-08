@@ -95,7 +95,7 @@ console.log(msg)
         </div>
         <div className="btnSubmit">
           <button className="submit" onClick={Register}>
-            Submit
+            Register
           </button>
         </div>
         

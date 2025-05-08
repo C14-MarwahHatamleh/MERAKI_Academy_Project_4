@@ -53,8 +53,8 @@ const Navigation = () => {
               </Nav.Link>
             </li>
             <li className="nav-item">
-              <Nav.Link className="nav-link" href="#">
-                Journal
+              <Nav.Link className="nav-link" href="/Login">
+                Login
               </Nav.Link>
             </li>
           </ul>
