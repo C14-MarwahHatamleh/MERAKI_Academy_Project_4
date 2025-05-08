@@ -11,9 +11,7 @@ const Job = () => {
   const [hours, sethHours] = useState("");
   const [locationWork, setLocationWork] = useState("");
 
-
-
-console.log(title , description)
+  console.log(title, description);
   useEffect(() => {
     axios
       .get("http://localhost:5000/jobs", {
@@ -38,14 +36,14 @@ console.log(title , description)
                 className="cards"
                 key={i}
                 onClick={(e) => {
-                  const post = posts[i]
-                  console.log(post)
-                  setTitle(post.title)
-                  setDescription( post.description)
-                  setRequirements(post.requirements)
-                  setTypeOfJob(post.typeOfJob)
-                  sethHours(post.hours)
-                  setLocationWork(post.locationWork)
+                  const post = posts[i];
+                  console.log(post);
+                  setTitle(post.title);
+                  setDescription(post.description);
+                  setRequirements(post.requirements);
+                  setTypeOfJob(post.typeOfJob);
+                  sethHours(post.hours);
+                  setLocationWork(post.locationWork);
                 }}
               >
                 <div className="card-body">
@@ -56,25 +54,48 @@ console.log(title , description)
             );
           })}
         </div>
-        <div className="jobCardDetails">
-          <div className="card-body-details">
-           { <h5 className="card-title">{title}</h5>}
-           { <p className="card-description">{description}</p>}
-            <p className="card-requirements">{requirements}</p>
-            <p className="card-typeOfWork">{typeOfJob}</p>
-            <p className="card-hours">{hours}</p>
-            <p className="card-LocationWork">{locationWork}</p>
-            <a href="#" className="btnApply ">
-              Apply
-            </a>
-            <br />
-            <p className="card-about">
-              <h5>About Company</h5>
-              OCC Weavers Ltd. <br />
-              Job Source: <a href ="www.linkedin.com">www.linkedin.com</a>
-            </p>
+
+        {title && description && requirements ? (
+          <div className="jobCardDetails">
+            <div className="card-body-details">
+              {<h5 className="card-title">{title}</h5>}
+              {<p className="card-description">{description}</p>}
+              <p className="card-requirements">{requirements}</p>
+              <p className="card-typeOfWork">{typeOfJob}</p>
+              <p className="card-hours">{hours}</p>
+              <p className="card-LocationWork">{locationWork}</p>
+              <a href="#" className="btnApply ">
+                Apply
+              </a>
+              <br />
+              <p className="card-about">
+                <h5>About Company</h5>
+                OCC Weavers Ltd. <br />
+                Job Source: <a href="www.linkedin.com">www.linkedin.com</a>
+              </p>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="jobCardDetails">
+            <div className="card-body-details">
+              {<h5 className="card-title">{posts[0]?.title}</h5>}
+              {<p className="card-description">{posts[0]?.description}</p>}
+              <p className="card-requirements">{posts[0]?.requirements}</p>
+              <p className="card-typeOfWork">{posts[0]?.typeOfJob}</p>
+              <p className="card-hours">{posts[0]?.hours}</p>
+              <p className="card-LocationWork">{posts[0]?.locationWork}</p>
+              <a href="#" className="btnApply ">
+                Apply
+              </a>
+              <br />
+              <p className="card-about">
+                <h5>About Company</h5>
+                OCC Weavers Ltd. <br />
+                Job Source: <a href="www.linkedin.com">www.linkedin.com</a>
+              </p>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
