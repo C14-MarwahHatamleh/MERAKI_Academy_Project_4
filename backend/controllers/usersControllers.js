@@ -10,7 +10,7 @@ const TOKEN_EXP_Time = process.env.EXPIRESIN;
 
 const createUser = (req, res) => {
   try {
-    const { firstName, lastName, age, country, email, password, role } =
+    const { firstName, lastName, age, country, email, password } =
       req.body;
 
     const newUser = new UserModel({
@@ -20,7 +20,7 @@ const createUser = (req, res) => {
       country,
       email,
       password,
-      role,
+      role :"681b3c11b5b003d37afd7489",
     });
 
     newUser

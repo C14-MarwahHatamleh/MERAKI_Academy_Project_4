@@ -45,8 +45,8 @@ const Navigation = () => {
               </Nav.Link>
             </li>
             <li className="nav-item">
-              <Nav.Link className="nav-link" href="#">
-                Contact
+              <Nav.Link className="nav-link" href="/Register">
+                Register
               </Nav.Link>
             </li>
             <li className="nav-item">

@@ -2,6 +2,7 @@ import React, { useState ,createContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navigation from "./components/navigation/Navigation";
 import Job from "./components/jobs/Job";
+import { Register } from "./components/Register/Register";
 
 import "./App.css";
 
@@ -17,6 +18,7 @@ const App = () => {
         <>
         { <Routes>
           <Route path="/jobs" element={<Job/>} />
+          <Route path="/Register" element={<Register/>} />
           
         </Routes> }
         
