@@ -129,7 +129,7 @@ const getJobById = async (req, res) => {
     .then((result) => {
       res.status(200).json({
         success: true,
-        message: `The Job ${result.ids}`,
+        message: `The Job ${result.id}`,
         jobs: result,
       });
     })
