@@ -121,6 +121,27 @@ const getJobByTitle = async (req, res) => {
     });
 };
 
+
+const getJobById = async (req, res) => {
+  console.log(req.params.id);
+  await jobModel
+    .find({ _id: req.params.id })
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        message: `The Job ${result.ids}`,
+        jobs: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+        err: err.message,
+      });
+    });
+};
+
 const updateJobById = async (req, res) => {
   const { id } = req.params.id;
   const { title, description, requirements, typeOfJob, hours, locationWork } =
@@ -251,6 +272,7 @@ const getJobByFilter = async (req, res) => {
 module.exports = {
   createNewJob,
   getAllJobs,
+  getJobById,
   getJobByTitle,
   updateJobById,
   deleteJobById,

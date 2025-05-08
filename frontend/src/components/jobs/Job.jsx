@@ -4,7 +4,9 @@ import React, { useState, useEffect } from "react";
 
 const Job = () => {
   const [posts, setPosts] = useState([]);
-
+  const [title, setTitle] = useState([{}]);
+  const [description, setDescription] = useState([{}]);
+console.log(title , description)
   useEffect(() => {
     axios
       .get("http://localhost:5000/jobs", {
@@ -29,7 +31,10 @@ const Job = () => {
                 className="cards"
                 key={i}
                 onClick={(e) => {
-                  console.log(e.target);
+                  const post = posts[i]
+                  console.log(post)
+                  setTitle(...title, post.title)
+                  setDescription(...description , post.description)
                 }}
               >
                 <div className="card-body">
@@ -42,8 +47,8 @@ const Job = () => {
         </div>
         <div className="jobCardDetails">
           <div className="card-body-details">
-            <h5 className="card-title">test</h5>
-            <p className="card-description">test</p>
+           { <h5 className="card-title">{title}</h5>}
+           { <p className="card-description">{description}</p>}
             <p className="card-requirements">test</p>
             <p className="card-typeOfWork">test</p>
             <p className="card-hours">test</p>

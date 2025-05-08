@@ -2,30 +2,42 @@
     display: flex;
     flex-direction: row;
     margin-top: 50px;
+   
 }
 
 .jobCardDetails{
     margin: 20px;
-    width: 600px;
+    margin-right: 90px;
+    width: 70%;
+    height: 900px;
     background-color: aquamarine;
     border-radius: 40px;
     border: 1px solid;
   
 }
-
+       
 .card-body-details{
     margin: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    flex-wrap: wrap;
 }
 .cards{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    height: 200px;
-    width: 400px;
+    width: 80%;
+    height: 20%;
     cursor: pointer;
     border-radius: 40px;
     border: 1px solid;
+    
+    
+}
+
+.cards-jobs{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .card-body{
@@ -33,6 +45,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    flex-wrap: wrap;
 
 }
 
