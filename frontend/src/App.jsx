@@ -1,4 +1,5 @@
 import React, { useState ,createContext } from "react";
+import { Routes, Route } from "react-router-dom";
 import Navigation from "./components/navigation/Navigation";
 import Job from "./components/jobs/Job";
 
@@ -14,7 +15,11 @@ const App = () => {
          <Navigation/>
         </div>
         <>
-        <Job/>
+        { <Routes>
+          <Route path="/jobs" element={<Job/>} />
+          
+        </Routes> }
+        
         </>
       </userContext.Provider>
     </>

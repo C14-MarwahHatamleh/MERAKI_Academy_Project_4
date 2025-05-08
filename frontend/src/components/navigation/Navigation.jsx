@@ -25,22 +25,34 @@ const Navigation = () => {
           <span class="navbar-toggler-icon"></span>
         </button> */}
         <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-          <span className="logo">Find<span className="ly">ly</span> </span>
+          <span className="logo">
+            Find<span className="ly">ly</span>{" "}
+          </span>
           <ul className="navbar-nav">
             <li className="nav-item ">
-              <a className="nav-link" href="#">
-                Jobs <span className="sr-only">(current)</span>
-              </a>
+              <Nav.Link className="nav-link" href="#">
+                Home
+              </Nav.Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                Link
-              </a>
+              <Nav.Link className="nav-link" href="/jobs">
+                Jobs
+              </Nav.Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                Disabled
-              </a>
+              <Nav.Link className="nav-link" href="#">
+                Location
+              </Nav.Link>
+            </li>
+            <li className="nav-item">
+              <Nav.Link className="nav-link" href="#">
+                Contact
+              </Nav.Link>
+            </li>
+            <li className="nav-item">
+              <Nav.Link className="nav-link" href="#">
+                Journal
+              </Nav.Link>
             </li>
           </ul>
         </div>
@@ -50,6 +62,7 @@ const Navigation = () => {
           placeholder="Job titles, Keywords..."
           aria-label="Search"
         />
+        <button className="signIn_signUpBtn">Login In / Register</button>
       </nav>
     </>
   );

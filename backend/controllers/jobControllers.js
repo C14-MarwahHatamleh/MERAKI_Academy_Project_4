@@ -55,8 +55,8 @@ const createNewJob = async (req, res) => {
   //     });
 };
 
-const getAllJobs = (req, res) => {
-  jobModel
+const getAllJobs = async (req, res) => {
+  await jobModel
     .find({})
     .populate("comments")
     .then((result) => {
@@ -121,12 +121,12 @@ const getJobByTitle = async (req, res) => {
     });
 };
 
-const updateJobById = (req, res) => {
+const updateJobById = async (req, res) => {
   const { id } = req.params.id;
   const { title, description, requirements, typeOfJob, hours, locationWork } =
     req.body;
   console.log(req.params.id, req.body);
-  jobModel
+  await jobModel
     .findOneAndUpdate(id, {
       $set: {
         title: title,
@@ -156,7 +156,7 @@ const updateJobById = (req, res) => {
 const deleteJobById = async (req, res) => {
   const { id } = req.params.id;
 
-  jobModel
+  await jobModel
     .findOneAndDelete(id)
     .then((result) => {
       res.status(200).json({
@@ -203,6 +203,7 @@ const getJobByFilter = async (req, res) => {
     .find({
       $or: [
         { title: req.params.criteria.toLowerCase() },
+        { description: req.params.criteria.toLowerCase() },
         { typeOfJob: req.params.criteria.toLowerCase() },
         { locationWork: req.params.criteria.toLowerCase() },
       ],
@@ -211,14 +212,14 @@ const getJobByFilter = async (req, res) => {
       res.status(200).json({
         success: true,
         message: `Get the jobs based on ${req.params.criteria}`,
-        result : result
+        result: result,
       });
     })
     .catch((err) => {
-        res.status(400).json({
-            success: false,
-            message: `Can not find the jobs based on ${req.params.criteria}`,
-          });
+      res.status(400).json({
+        success: false,
+        message: `Can not find the jobs based on ${req.params.criteria}`,
+      });
     });
   //    const a = await jobModel.find($or: [{ title: (req.params.title).toLowerCase() } ,{typeOfJob: (req.params.title).toLowerCase()}, {locationWork: (req.params.title).toLowerCase()}]).exec()
   //    console.log(a)
