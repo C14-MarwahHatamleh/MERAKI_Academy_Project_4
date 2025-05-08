@@ -1,0 +1,25 @@
+.cards{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    height: 200px;
+    width: 400px;
+    cursor: pointer;
+    border-radius: 40px;
+    border: 1px solid;
+}
+
+.card-body{
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.btnApply{
+    width: 20px;
+
+}
+
+.cards{
+    margin: 20px;
+}

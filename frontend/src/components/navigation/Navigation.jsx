@@ -12,7 +12,7 @@ const Navigation = () => {
 
   return (
     <>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
         {/* <button
           class="navbar-toggler"
           type="button"
@@ -24,28 +24,28 @@ const Navigation = () => {
         >
           <span class="navbar-toggler-icon"></span>
         </button> */}
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-          <span className="logo">Find<span class="ly">ly</span> </span>
-          <ul class="navbar-nav">
-            <li class="nav-item ">
-              <a class="nav-link" href="#">
-                Home <span class="sr-only">(current)</span>
+        <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <span className="logo">Find<span className="ly">ly</span> </span>
+          <ul className="navbar-nav">
+            <li className="nav-item ">
+              <a className="nav-link" href="#">
+                Jobs <span className="sr-only">(current)</span>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
+            <li className="nav-item">
+              <a className="nav-link" href="#">
                 Link
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
+            <li className="nav-item">
+              <a className="nav-link" href="#">
                 Disabled
               </a>
             </li>
           </ul>
         </div>
         <input
-          class="input_Search"
+          className="input_Search"
           type="search"
           placeholder="Job titles, Keywords..."
           aria-label="Search"
