@@ -1,3 +1,24 @@
+.ContainerJobs{
+    display: flex;
+    flex-direction: row;
+    margin-top: 50px;
+}
+
+.jobCardDetails{
+    margin: 20px;
+    width: 600px;
+    background-color: aquamarine;
+    border-radius: 40px;
+    border: 1px solid;
+  
+}
+
+.card-body-details{
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 .cards{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     height: 200px;

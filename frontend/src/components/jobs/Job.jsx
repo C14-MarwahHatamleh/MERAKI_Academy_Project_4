@@ -21,21 +21,45 @@ const Job = () => {
   }, []);
   return (
     <>
-      {posts.map((ele, i) => {
-        return (
-          <div className="cards"  key={i} onClick={((e)=>{
-            console.log(e.target)
-        })}>
-            <div className="card-body">
-              <h5 className="card-title">{ele.title}</h5>
-              <p className="card-text">{ele.description}.</p>
-              <a href="#" className="btnApply ">
-                Apply
-              </a>
-            </div>
+      <div className="ContainerJobs">
+        <div className="cards-jobs">
+          {posts.map((ele, i) => {
+            return (
+              <div
+                className="cards"
+                key={i}
+                onClick={(e) => {
+                  console.log(e.target);
+                }}
+              >
+                <div className="card-body">
+                  <h5 className="card-title">{ele.title}</h5>
+                  <p className="card-text">{ele.description}.</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div className="jobCardDetails">
+          <div className="card-body-details">
+            <h5 className="card-title">test</h5>
+            <p className="card-description">test</p>
+            <p className="card-requirements">test</p>
+            <p className="card-typeOfWork">test</p>
+            <p className="card-hours">test</p>
+            <p className="card-LocationWork">test</p>
+            <a href="#" className="btnApply ">
+              Apply
+            </a>
+            <br />
+            <p className="card-about">
+              <h5>About Company</h5>
+              OCC Weavers Ltd. <br />
+              Job Source: <a href ="www.linkedin.com">www.linkedin.com</a>
+            </p>
           </div>
-        );
-      })}
+        </div>
+      </div>
     </>
   );
 };
