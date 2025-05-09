@@ -71,7 +71,7 @@ export const Login = () => {
           </div>
         </div>
         <div className="btnSubmit">
-          <button className="submit" onClick={Login}>
+          <button className="submitLogin" onClick={Login}>
             Login
           </button>
         </div>

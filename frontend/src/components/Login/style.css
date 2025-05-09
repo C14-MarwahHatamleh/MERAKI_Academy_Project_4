@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-align-items: center;    
+    align-items: center;    
 }
 
 .login{
@@ -14,13 +14,7 @@ justify-content: center;
 }
 
 .labels{
-    margin-left: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    font-family: Lora, serif;
-    position: relative;
-    margin-right: 10px;
+    
 
 }
 
@@ -35,7 +29,7 @@ justify-content: center;
 margin-top: 30px;
 }
 
-.submit{
+.submitLogin{
     border-radius: 20px;
     height: 40px;
     width: 300px;

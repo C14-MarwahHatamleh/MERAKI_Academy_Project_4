@@ -1,6 +1,6 @@
 import "./style.css";
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -9,7 +9,7 @@ import { userContext } from "react";
 const Navigation = () => {
   // const {token,setToken} = useContext(userContext);
   // console.log(token)
-
+  const navigate = useNavigate();
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -24,9 +24,7 @@ const Navigation = () => {
         >
           <span class="navbar-toggler-icon"></span>
         </button> */}
-        
-        
-        
+
         <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
           <span className="logo">
             Find<span className="ly">ly</span>{" "}
@@ -48,13 +46,13 @@ const Navigation = () => {
               </Nav.Link>
             </li>
             <li className="nav-item">
-              <Nav.Link className="nav-link" href="/Register">
-                Register
+              <Nav.Link className="nav-link" href="#">
+                Contact
               </Nav.Link>
             </li>
             <li className="nav-item">
-              <Nav.Link className="nav-link" href="/Login">
-                Login
+              <Nav.Link className="nav-link" href="#">
+                Journal
               </Nav.Link>
             </li>
           </ul>
@@ -65,12 +63,17 @@ const Navigation = () => {
           placeholder="Job titles, Keywords..."
           aria-label="Search"
         />
-        <button className="signIn_signUpBtn">Login In / Register</button>
+        <button
+          onClick={(e) => {
+            navigate("/Register");
+          }}
+          className="signIn_signUpBtn"
+        >
+          Login In / Register
+        </button>
       </nav>
     </>
   );
 };
-
-
 
 export default Navigation;
