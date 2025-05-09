@@ -10,7 +10,6 @@
     margin-right: 90px;
     width: 400%;
     height: 900px;
-    background-color: aquamarine;
     border-radius: 40px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
@@ -126,7 +125,7 @@ margin: 10px;
     color: #69a6ce;
     border-radius: 20px;
     padding: 3px;
-    font-family: Lora, serif;
+    font-family: Verdana, sans-serif;
 
    
 }
@@ -137,16 +136,16 @@ margin: 10px;
   }
   
 .card-title{
-    font-size: 22px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: 500;
     text-overflow:clip;
-    font-family: Lora, serif;
+    font-family: Verdana, sans-serif;
     text-transform: capitalize;
 }
 
 .card-company{
     text-overflow:clip;
-    font-family: Lora, serif;
+    font-family: Verdana, sans-serif;
     text-transform: capitalize;
     font-size: 12px;
     font-weight: 400;
@@ -160,10 +159,62 @@ margin: 10px;
 
 .card-experience{
     text-transform: capitalize;
+    position: relative;
+    bottom: 4px;
+    margin-left: 10px;
 
 }
 
 .card-country{
     text-transform: capitalize;
+    position: relative;
+    bottom: 4px;
+    margin-left: 10px;
+}
 
+.card-hours{
+    position: relative;
+    bottom: 4px;
+    margin-left: 10px;
+}
+
+.experienceDiv{
+    display: inline-flex;
+}
+
+.countryDiv{
+    display: inline-flex;
+}
+
+.hoursDiv{
+    display: inline-flex;
+}
+
+.typeJobDiv{
+    display: inline-flex;
+}
+
+.applyNow {
+    width: 200px;
+    height: 35px;
+    border: 2px solid #69a6ce;  
+    color: #69a6ce;
+    font-family: Verdana, sans-serif;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.card-typeOfWork{
+text-transform: capitalize;
+margin-left: 3px;
+}
+
+.descriptionDiv{
+    display: block;
+    margin-top: 30px;
+}
+
+.card-company{
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
