@@ -8,7 +8,7 @@
 .jobCardDetails{
     margin: 20px;
     margin-right: 90px;
-    width: 70%;
+    width: 400%;
     height: 900px;
     background-color: aquamarine;
     border-radius: 40px;
@@ -24,8 +24,8 @@
 }
 .cards{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    width: 80%;
-    height: 20%;
+    width: 500px;
+    height: 14%;
     cursor: pointer;
     border-radius: 40px;
     border: 0px solid;
@@ -37,6 +37,8 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    margin-left: 30px;
+    
 }
 
 .card-body{
@@ -53,15 +55,11 @@
 
 }
 
-.cards{
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    margin: 20px;
-}
 
   
   .cards:hover {
-    width: 85%;
-    height: 25%;
+    width: 520px;
+    height: 13%;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   }
 
@@ -128,7 +126,8 @@ margin: 10px;
     color: #69a6ce;
     border-radius: 20px;
     padding: 3px;
-   
+    font-family: Lora, serif;
+
    
 }
 
@@ -137,3 +136,34 @@ margin: 10px;
     color: #fff;
   }
   
+.card-title{
+    font-size: 22px;
+    font-weight: 700;
+    text-overflow:clip;
+    font-family: Lora, serif;
+    text-transform: capitalize;
+}
+
+.card-company{
+    text-overflow:clip;
+    font-family: Lora, serif;
+    text-transform: capitalize;
+    font-size: 12px;
+    font-weight: 400;
+
+}
+
+.card-description{
+    text-transform: capitalize;
+
+}
+
+.card-experience{
+    text-transform: capitalize;
+
+}
+
+.card-country{
+    text-transform: capitalize;
+
+}

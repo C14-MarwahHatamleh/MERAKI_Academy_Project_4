@@ -2,6 +2,8 @@ import "./style.css";
 import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
 import { userContext } from "../../App";
+import { ImBriefcase } from "react-icons/im";
+import { ImLocation } from "react-icons/im";
 
 const Job = () => {
   const [posts, setPosts] = useState([]);
@@ -11,6 +13,8 @@ const Job = () => {
   const [typeOfJob, setTypeOfJob] = useState("");
   const [hours, sethHours] = useState("");
   const [locationWork, setLocationWork] = useState("");
+  const [country, setCountry] = useState("");
+  const [experience, setExperience] = useState("");
   const { token } = useContext(userContext);
   const [loading, setLoading] = useState(false);
 
@@ -48,11 +52,18 @@ const Job = () => {
                     setTypeOfJob(post.typeOfJob);
                     sethHours(post.hours);
                     setLocationWork(post.locationWork);
+                    setCountry(post.country);
+                    setExperience(post.experience);
                   }}
                 >
                   <div className="card-body">
-                    <h5 className="card-title">{ele.title}</h5>
-                    <p className="card-text">{ele.description}.</p>
+                    <h5 className="card-title">{ele?.title ?? " "}</h5>
+                    <span className="card-company">Findly LTD. Company</span>
+                    <p className="card-description">{ele?.description ?? " "}.</p>
+                    <div className="experienceDiv" > <ImBriefcase /> <p className="card-experience">{ele?.experience ?? " "}</p> </div>
+                    <div className="countryDiv"> <ImLocation /> <p className="card-country">{ele?.country ?? " "}</p></div>
+                   
+                   
                   </div>
                 </div>
               );
@@ -68,6 +79,8 @@ const Job = () => {
                 <p className="card-typeOfWork">{typeOfJob}</p>
                 <p className="card-hours">{hours}</p>
                 <p className="card-LocationWork">{locationWork}</p>
+                <p className="card-experience">{experience}</p>
+                <p className="card-country">{country}</p>
                 <a href="#" className="btnApply ">
                   Apply
                 </a>
