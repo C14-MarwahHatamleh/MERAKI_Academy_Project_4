@@ -6,6 +6,7 @@ import Job from "./components/jobs/Job";
 import { Register } from "./components/Register/Register";
 import Home from "./components/Home/Home";
 import { Login } from "./components/Login/Login";
+import ReportProblem from "./components/ReportProblem/ReportProblem";
 
 
 export const userContext = createContext();
@@ -28,6 +29,8 @@ const App = () => {
           <Route path="/jobs" element={<Job/>} />
           <Route path="/Register" element={<Register/>} />
           <Route path="/Login" element={<Login/>} />
+          <Route path="/ReportProblem" element={<ReportProblem/>} />
+
 
         </Routes> }
         

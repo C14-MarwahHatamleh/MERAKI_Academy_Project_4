@@ -9,6 +9,9 @@ export const Register = () => {
   const [msg, setMsg] = useState("");
   const [success, setSuccess] = useState(false);
   console.log(msg);
+
+
+
   const Register = () => {
     axios
       .post("http://localhost:5000/users/register", userInfo)
@@ -97,7 +100,6 @@ export const Register = () => {
             Register
           </button>
         </div>
-        
 
         {msg && (
           <div className={success ? "success" : "failed"}>
@@ -106,7 +108,7 @@ export const Register = () => {
           </div>
         )}
 
-<div className="submitLogin">
+        <div className="submitLogin">
           <button
             className="loginbtn"
             onClick={(e) => {

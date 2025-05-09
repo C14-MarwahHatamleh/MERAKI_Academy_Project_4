@@ -12,8 +12,7 @@
     height: 900px;
     background-color: aquamarine;
     border-radius: 40px;
-    border: 1px solid;
-  
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
        
 .card-body-details{
@@ -29,7 +28,7 @@
     height: 20%;
     cursor: pointer;
     border-radius: 40px;
-    border: 1px solid;
+    border: 0px solid;
     
     
 }
@@ -55,5 +54,86 @@
 }
 
 .cards{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     margin: 20px;
 }
+
+  
+  .cards:hover {
+    width: 85%;
+    height: 25%;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+
+.container{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+flex-wrap: wrap;
+
+}
+
+
+.noPosts{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+margin-top: 50px;
+background-color:antiquewhite ;
+ width: 700px;
+ height: 350px
+}
+.header {
+    color: white;
+    font-size: 100px;
+  text-shadow: 1px 1px 2px rgba(255,255,255,0.25);
+  animation: animate 10s ease-in-out infinite;
+    background: -webkit-repeating-linear-gradient(-45deg, #71b7e6, #69a6ce, #b98acc, #ee8176, #b98acc, #69a6ce, #9b59b6);
+
+}
+
+@keyframes animate {
+    0%{
+      background-position: 0 0;
+    }
+    25%{
+      background-position: 100% 0;
+    }
+    50%{
+      background-position: 100% 100%;
+    }
+    75%{
+      background-position: 0% 100%;
+    }
+    100%{
+      background-position: 0% 0%;
+    }
+  }
+  
+
+.opps{
+font-size: 1.2em;
+margin: 10px;
+
+}
+
+
+.btns a{
+    display: inline-flex;
+    text-decoration: none;
+    border: 2px solid #69a6ce;  
+    margin: 0 10px;
+    color: #69a6ce;
+    border-radius: 20px;
+    padding: 3px;
+   
+   
+}
+
+ .btns a:hover{
+    background: #69a6ce;
+    color: #fff;
+  }
+  

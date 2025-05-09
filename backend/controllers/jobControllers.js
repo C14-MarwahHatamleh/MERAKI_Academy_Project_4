@@ -3,8 +3,16 @@ const jobModel = require("../models/jobSchema");
 
 const createNewJob = async (req, res) => {
   const token = req.token.userID;
-  const { title, description, requirements, typeOfJob, hours, locationWork } =
-    req.body;
+  const {
+    title,
+    description,
+    requirements,
+    typeOfJob,
+    hours,
+    locationWork,
+    country,
+    experience,
+  } = req.body;
   const newJob = new jobModel({
     title,
     description,
@@ -12,6 +20,8 @@ const createNewJob = async (req, res) => {
     typeOfJob,
     hours,
     locationWork,
+    country,
+    experience,
     user: token,
     comments: [],
   });
@@ -120,7 +130,6 @@ const getJobByTitle = async (req, res) => {
       });
     });
 };
-
 
 const getJobById = async (req, res) => {
   console.log(req.params.id);
