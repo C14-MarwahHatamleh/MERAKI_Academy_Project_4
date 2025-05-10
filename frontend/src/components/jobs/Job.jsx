@@ -36,19 +36,6 @@ const Job = () => {
       .catch((err) => {
         console.log(err);
       });
-
-    axios
-      .get("http://localhost:5000/jobs/filter/:criteria", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setPosts(...posts, res.data.jobs);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   }, []);
   return (
     <>
@@ -57,12 +44,7 @@ const Job = () => {
         <button
           className="filterBtn"
           onClick={(e) => {
-            <>
-              <button></button>
-              <button> </button>
-              <button> </button>
-              <button> </button>
-            </>;
+            <></>;
           }}
         >
           <ImFilter />
@@ -70,6 +52,10 @@ const Job = () => {
             <span>All Filters</span>
           </p>
         </button>
+        <button className="filterTypeOfJob  filterBtn">Type Of Job</button>
+        <button className="filterCountry filterBtn"> Country</button>
+        <button className="filterTitle filterBtn"> Title</button>
+        <button className="filterSalary filterBtn"> Salary</button>
       </div>
       <div>
         <p className="paraOfCardsJobs">Recently Jobs</p>
@@ -208,7 +194,7 @@ const Job = () => {
                   {" "}
                   <ImClock />
                   <p className="card-hours">
-                    {posts[0]?.hours ?  posts[0]?.hours + " hrs" : " "}
+                    {posts[0]?.hours ? posts[0]?.hours + " hrs" : " "}
                   </p>
                 </div>
 
