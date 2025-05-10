@@ -11,8 +11,6 @@ import {
   ImFilter,
 } from "react-icons/im";
 
-
-
 const Job = () => {
   const [posts, setPosts] = useState([]);
   const [title, setTitle] = useState("");
@@ -24,8 +22,6 @@ const Job = () => {
   const [country, setCountry] = useState("");
   const [experience, setExperience] = useState("");
   const { token } = useContext(userContext);
-
-  
 
   useEffect(() => {
     axios
@@ -41,8 +37,8 @@ const Job = () => {
         console.log(err);
       });
 
-
-      axios.get("http://localhost:5000/jobs/filter/:criteria", {
+    axios
+      .get("http://localhost:5000/jobs/filter/:criteria", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -58,20 +54,26 @@ const Job = () => {
     <>
       <div className="filterDiv">
         <p className="JobSearch">Job Filter</p>
-        <button className="filterBtn" onClick={((e)=>{
-          <><button></button>
-          <button> </button>
-          <button> </button>
-          <button> </button></>
-
-        })}>
+        <button
+          className="filterBtn"
+          onClick={(e) => {
+            <>
+              <button></button>
+              <button> </button>
+              <button> </button>
+              <button> </button>
+            </>;
+          }}
+        >
           <ImFilter />
           <p className="text-filter">
             <span>All Filters</span>
           </p>
         </button>
       </div>
-      <div><p className="paraOfCardsJobs">Recently Jobs</p></div>
+      <div>
+        <p className="paraOfCardsJobs">Recently Jobs</p>
+      </div>
 
       {token ? (
         <div className="ContainerJobs">
@@ -206,7 +208,7 @@ const Job = () => {
                   {" "}
                   <ImClock />
                   <p className="card-hours">
-                    {posts[0]?.hours + " hrs" ?? " "}
+                    {posts[0]?.hours ?  posts[0]?.hours + " hrs" : " "}
                   </p>
                 </div>
 
