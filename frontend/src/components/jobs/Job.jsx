@@ -1,4 +1,3 @@
-/* eslint-disable no-constant-binary-expression */
 import "./style.css";
 import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
@@ -10,6 +9,7 @@ import {
   ImHome2,
   ImFilter,
 } from "react-icons/im";
+import { useParams } from "react-router-dom";
 
 const Job = () => {
   const [posts, setPosts] = useState([]);
@@ -21,9 +21,32 @@ const Job = () => {
   const [locationWork, setLocationWork] = useState("");
   const [country, setCountry] = useState("");
   const [experience, setExperience] = useState("");
+  const [showBtns, SetShowBtns] = useState(false);
   const { token } = useContext(userContext);
+  const [filterTitle, SetFilterTitle] = useState([]);
+  const [criteria, SetCriteria] = useState("");
+  const [salaryRange, SetSalary] = useState("");
 
-  useEffect(() => {
+
+  console.log(criteria);
+
+  const filter = async (criteria) => {
+    await axios
+      .get(`http://localhost:5000/jobs/filter/` + criteria, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data.result);
+        SetFilterTitle(res.data.result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getAllJobs = () => {
     axios
       .get("http://localhost:5000/jobs", {
         headers: {
@@ -36,15 +59,19 @@ const Job = () => {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  useEffect(() => {
+    getAllJobs();
   }, []);
   return (
     <>
-      <div className="filterDiv">
+      <div className="filt(erDiv">
         <p className="JobSearch">Job Filter</p>
         <button
           className="filterBtn"
           onClick={(e) => {
-            <></>;
+            SetShowBtns(true);
           }}
         >
           <ImFilter />
@@ -52,10 +79,42 @@ const Job = () => {
             <span>All Filters</span>
           </p>
         </button>
-        <button className="filterTypeOfJob  filterBtn">Type Of Job</button>
-        <button className="filterCountry filterBtn"> Country</button>
-        <button className="filterTitle filterBtn"> Title</button>
-        <button className="filterSalary filterBtn"> Salary</button>
+        {showBtns && (
+          <>
+            {/* <button
+              className="filterTypeOfJob  filterBtn"
+              onClick={(e) => {
+                filter("full time")
+              
+              }}
+            >
+              Type Of Job
+            </button> */}
+            <div class="dropdown">
+              <button class="dropbtn">Type Of Job</button>
+              <div class="dropdown-content">
+                <a href="#">Full time</a>
+                <a href="#">Part Time</a>
+              </div>
+            </div>
+
+            <div class="dropdown">
+              <button class="dropbtn">Country</button>
+              <div class="dropdown-content">
+                <a href="#">Jordan</a>
+                <a href="#">Part Time</a>
+              </div>
+            </div>
+            <div class="dropdown">
+              <label for="vol">Salary <span>{salaryRange ? "290 - " + (salaryRange) : "290"}</span></label>
+              <input type="range" id="salary" name="salary" min="290" max="5000"
+              onChange={((e)=>{
+                SetSalary(e.target.value)
+                console.log(e.target.value)
+              })} />
+            </div>
+          </>
+        )}
       </div>
       <div>
         <p className="paraOfCardsJobs">Recently Jobs</p>

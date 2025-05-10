@@ -17,6 +17,7 @@
     "@reduxjs/toolkit": "^2.8.0",
     "axios": "^1.9.0",
     "bootstrap": "^5.3.6",
+    "feed": "^5.0.0",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",

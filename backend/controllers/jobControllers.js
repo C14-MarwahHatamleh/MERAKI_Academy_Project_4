@@ -236,10 +236,10 @@ const deleteJobByUser = async (req, res) => {
 };
 
 const getJobByFilter = async (req, res) => {
+  console.log(req.params.criteria.toLowerCase())
    await jobModel
     .find({
       $or: [
-        { title: req.params.criteria.toLowerCase() },
         { typeOfJob: req.params.criteria.toLowerCase() },
         { locationWork: req.params.criteria.toLowerCase() },
         { salary: req.params.criteria.toLowerCase() },

@@ -51,9 +51,10 @@ const jobSchema = new mongoose.Schema({
 });
 
 jobSchema.pre("save", async function () {
-  this.title = this.title.toLowerCase();
-  this.typeOfJob = this.typeOfJob.toLowerCase();
-  this.locationWork = this.locationWork.toLowerCase();
+  this.title = (this.title.toLowerCase()).trim();
+  this.typeOfJob = (this.typeOfJob.toLowerCase()).trim();
+  this.locationWork = (this.locationWork.toLowerCase()).trim();
+  this.country = (this.country.toLowerCase()).trim();
 });
 
 const jobModel = mongoose.model("JobDetails", jobSchema);
