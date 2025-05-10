@@ -1,10 +1,16 @@
+/* eslint-disable no-constant-binary-expression */
 import "./style.css";
 import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
 import { userContext } from "../../App";
-import { ImBriefcase } from "react-icons/im";
-import { ImLocation } from "react-icons/im";
-import { ImClock } from "react-icons/im";
+import {
+  ImBriefcase,
+  ImLocation,
+  ImClock,
+  ImHome2,
+  ImFilter,
+} from "react-icons/im";
+
 
 
 const Job = () => {
@@ -18,9 +24,9 @@ const Job = () => {
   const [country, setCountry] = useState("");
   const [experience, setExperience] = useState("");
   const { token } = useContext(userContext);
-  const [loading, setLoading] = useState(false);
 
-  console.log(title, description);
+  
+
   useEffect(() => {
     axios
       .get("http://localhost:5000/jobs", {
@@ -34,9 +40,39 @@ const Job = () => {
       .catch((err) => {
         console.log(err);
       });
+
+
+      axios.get("http://localhost:5000/jobs/filter/:criteria", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setPosts(...posts, res.data.jobs);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
   return (
     <>
+      <div className="filterDiv">
+        <p className="JobSearch">Job Filter</p>
+        <button className="filterBtn" onClick={((e)=>{
+          <><button></button>
+          <button> </button>
+          <button> </button>
+          <button> </button></>
+
+        })}>
+          <ImFilter />
+          <p className="text-filter">
+            <span>All Filters</span>
+          </p>
+        </button>
+      </div>
+      <div><p className="paraOfCardsJobs">Recently Jobs</p></div>
+
       {token ? (
         <div className="ContainerJobs">
           <div className="cards-jobs">
@@ -61,17 +97,32 @@ const Job = () => {
                   <div className="card-body">
                     <h5 className="card-title">{ele?.title ?? " "}</h5>
                     <span className="card-company">Findly LTD. Company</span>
-                    <div className="experienceDiv">
+                    <div className="typeJobDiv">
                       {" "}
-                      <ImBriefcase />{" "}
+                      <ImHome2 />
+                      <p className="card-typeOfWork">
+                        {ele.typeOfJob ? ele.typeOfJob : ""}
+                      </p>
+                    </div>
+                    <div className="hoursDiv">
+                      <ImClock />
+                      <p className="card-hours">
+                        {ele.hours ? ele.hours + " hrs" : " "}
+                      </p>
+                    </div>
+                    <div className="experienceDiv">
+                      <ImBriefcase />
                       <p className="card-experience">
-                        {ele?.experience ?? " "}
-                      </p>{" "}
+                        {ele.experience ? ele.experience + " yrs" : " "}
+                      </p>
                     </div>
                     <div className="countryDiv">
-                      {" "}
-                      <ImLocation />{" "}
-                      <p className="card-country">{ele?.country ?? " "}</p>
+                      <ImLocation />
+                      {/* " - " + locationWork */}
+                      <p className="card-country">
+                        {ele.country ? ele.country + " - " : " "}{" "}
+                        {ele.locationWork ? ele.locationWork : " "}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -79,8 +130,8 @@ const Job = () => {
             })}
           </div>
 
-          {title && description && requirements ? (
-            <div className="jobCardDetails">
+          <div className="jobCardDetails">
+            {title && description && requirements ? (
               <div className="card-body-details">
                 {<h5 className="card-title">{title}</h5>}
                 <div className="descriptionDiv">
@@ -97,16 +148,16 @@ const Job = () => {
 
                 <div className="typeJobDiv">
                   {" "}
-                  <p>Type job :</p>
-                  <p className="card-typeOfWork">{typeOfJob ? (typeOfJob) : ("")}</p>
+                  <ImHome2 />
+                  <p className="card-typeOfWork">
+                    {typeOfJob ? typeOfJob : ""}
+                  </p>
                 </div>
-                
+
                 <div className="hoursDiv">
                   {" "}
                   <ImClock />
-                  <p className="card-hours">
-                  {hours ? hours + " hrs" : " "}
-                </p>
+                  <p className="card-hours">{hours ? hours + " hrs" : " "}</p>
                 </div>
                 {/* <p className="card-LocationWork">{locationWork}</p> */}
                 <div className="experienceDiv">
@@ -124,7 +175,7 @@ const Job = () => {
                   </p>
                 </div>
 
-                <button className="applyNow">Apply Now  </button>    
+                <button className="applyNow">Apply Now </button>
 
                 <br />
                 <p className="card-about">
@@ -133,42 +184,61 @@ const Job = () => {
                   Job Source: <a href="www.linkedin.com">www.linkedin.com</a>
                 </p>
               </div>
-            </div>
-          ) : (
-            <div className="jobCardDetails">
+            ) : (
               <div className="card-body-details">
                 {<h5 className="card-title">{posts[0]?.title}</h5>}
                 <div className="descriptionDiv">
                   {" "}
-                  <h5>Job Description</h5>{" "}
+                  <h5>Job Description</h5>
                   <p className="card-description">{posts[0]?.description}</p>
                 </div>
-                <p className="card-requirements">{posts[0]?.requirements}</p>
-                <p className="card-typeOfWork">{posts[0]?.typeOfJob}</p>
-                <p className="card-hours">{posts[0]?.hours}</p>
-                <p className="card-LocationWork">{posts[0]?.locationWork}</p>
+                <div className="requirementsDiv">
+                  {" "}
+                  <h5>Qualifications</h5>{" "}
+                  <p className="card-requirements">{posts[0]?.requirements}</p>
+                </div>
+                <div className="typeJobDiv">
+                  {" "}
+                  <ImHome2 />
+                  <p className="card-typeOfWork">{posts[0]?.typeOfJob}</p>
+                </div>
+                <div className="hoursDiv">
+                  {" "}
+                  <ImClock />
+                  <p className="card-hours">
+                    {posts[0]?.hours + " hrs" ?? " "}
+                  </p>
+                </div>
+
+                {/* <p className="card-LocationWork">{posts[0]?.locationWork}</p> */}
                 <div className="experienceDiv">
                   {" "}
                   <ImBriefcase />
                   <p className="card-experience">
-                    {experience ? experience + "yrs" : " "}
+                    {posts[0]?.experience ? posts[0]?.experience + " yrs" : " "}
                   </p>
                 </div>
                 <div className="countryDiv">
                   {" "}
-                  <ImLocation /> <p className="card-country">{country}</p>
+                  <ImLocation />{" "}
+                  <p className="card-country">
+                    {posts[0]?.country ? posts[0]?.country + " - " : " "}
+                    {posts[0]?.locationWork ? posts[0]?.locationWork : " "}
+                  </p>
                 </div>
+
+                <button className="applyNow">Apply Now </button>
+
                 <br />
-                <button className="applyNow">Apply Now  </button>    
-                
                 <p className="card-about">
                   <h5>About Company</h5>
                   OCC Weavers Ltd. <br />
                   Job Source: <a href="www.linkedin.com">www.linkedin.com</a>
                 </p>
               </div>
-            </div>
-          )}
+            )}
+            <div className="">test</div>
+          </div>
         </div>
       ) : (
         <div className="container">

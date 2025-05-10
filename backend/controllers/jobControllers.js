@@ -116,7 +116,12 @@ const getAllJobs = async (req, res) => {
 const getJobByTitle = async (req, res) => {
   console.log(req.params.title);
   await jobModel
-    .find({ title: req.params.title.toLowerCase() })
+    .find({
+      $or: [
+        { title: req.params.title.toLowerCase() },
+        { description: req.params.criteria.toLowerCase() },
+      ],
+    })
     .then((result) => {
       res.status(200).json({
         success: true,
@@ -231,13 +236,14 @@ const deleteJobByUser = async (req, res) => {
 };
 
 const getJobByFilter = async (req, res) => {
-  const a = await jobModel
+   await jobModel
     .find({
       $or: [
         { title: req.params.criteria.toLowerCase() },
-        { description: req.params.criteria.toLowerCase() },
         { typeOfJob: req.params.criteria.toLowerCase() },
         { locationWork: req.params.criteria.toLowerCase() },
+        { salary: req.params.criteria.toLowerCase() },
+        { country: req.params.criteria.toLowerCase() },
       ],
     })
     .then((result) => {
