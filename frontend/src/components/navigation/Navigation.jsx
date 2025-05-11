@@ -1,15 +1,43 @@
 import "./style.css";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { userContext } from "react";
+import axios from "axios";
 
 const Navigation = () => {
-  // const {token,setToken} = useContext(userContext);
-  // console.log(token)
   const navigate = useNavigate();
+   // const { token } = useContext(userContext);
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+console.log(searchResults)
+  const Search = async () => {
+    await axios
+      .get(`http://localhost:5000/jobs/search`, {
+        
+        params: {
+          search: searchInput,
+        },
+        // headers: {
+        //   Authorization: `Bearer ${token}`,
+        // },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setSearchResults(res.data.result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    Search()
+  });
+
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -58,6 +86,9 @@ const Navigation = () => {
           </ul>
         </div>
         <input
+          onInput={(e) => {
+            setSearchInput(e.target.value);
+          }}
           className="input_Search"
           type="search"
           placeholder="Job titles, Keywords..."
