@@ -4,39 +4,124 @@ const jobSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
+    trim: true,
+  },
+  company: {
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    website: {
+      type: String,
+      trim: true,
+    },
+    companySize: {
+      type: String,
+      trim: true,
+      enum: ["1-10", "11-50", "51-200", "201-500", "501-1000", "1000+"],
+    },
+    companyType: {
+      type: String,
+      trim: true,
+      enum: ["Public", "Private", "Government", "Non-Profit"],
+    },
+    companyLogo: {
+      type: String,
+    },
   },
   description: {
     type: String,
     required: true,
+    trim: true,
   },
-  requirements: {
-    type: String,
-    required: true,
-  },
+  responsibilities: [
+    {
+      type: String,
+      required: true,
+      trim: true,
+    },
+  ],
+  qualifications: [
+    {
+      type: String,
+      required: true,
+      trim: true,
+    },
+  ],
+  skills: [
+    {
+      type: String,
+      required: true,
+      trim: true,
+    },
+  ],
+  benefits: [
+    {
+      type: String,
+      trim: true,
+    },
+  ],
   typeOfJob: {
     type: String,
     required: true,
+    trim: true,
+    enum: {
+      values: [
+      "Full-time",
+      "Part-time",
+      "Contract",
+      "Temporary",
+      "Internship",
+      "Freelance",
+    ], message: 'Status is required.'}
   },
-  hours: {
+  workingHours: {
     type: String,
     required: true,
+    trim: true,
   },
-  salary:{
-    type: String,
+  salary: {
+    min: {
+      type: Number,
+      trim: true,
+      default: 290,
+    },
+    max: {
+      type: Number,
+      trim: true,
+      default: 10000,
+    },
   },
   locationWork: {
     type: String,
     required: true,
+    trim: true,
+    enum: ["Remote", "On-site", "Hybrid"],
   },
-  country:{
+  country: {
     type: String,
     required: true,
+    trim: true,
   },
-  experience:{
+  experience: {
+    minYears: {
+      type: Number,
+      trim: true,
+      default: 0,
+    },
+    maxYears: {
+      type: Number,
+      trim: true,
+      default: Infinity,
+    },
+  },
+  status: {
     type: String,
-    required: true,
+    enum: ["Active", "Inactive", "Closed"],
+    default: "Active",
   },
-  date:{
+  postingDate: {
     type: Date,
     default: Date.now(),
   },
@@ -50,12 +135,14 @@ const jobSchema = new mongoose.Schema({
   },
 });
 
+
 jobSchema.pre("save", async function () {
   this.title = (this.title.toLowerCase()).trim();
   this.typeOfJob = (this.typeOfJob.toLowerCase()).trim();
   this.locationWork = (this.locationWork.toLowerCase()).trim();
   this.country = (this.country.toLowerCase()).trim();
 });
+
 
 const jobModel = mongoose.model("JobDetails", jobSchema);
 
