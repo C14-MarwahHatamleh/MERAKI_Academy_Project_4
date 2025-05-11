@@ -59,7 +59,7 @@ console.log(searchResults)
           </span>
           <ul className="navbar-nav">
             <li className="nav-item ">
-              <Nav.Link className="nav-link" href="#">
+              <Nav.Link className="nav-link" href="/Home">
                 Home
               </Nav.Link>
             </li>
