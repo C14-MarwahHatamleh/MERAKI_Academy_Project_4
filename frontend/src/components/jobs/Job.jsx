@@ -12,23 +12,52 @@ import {
 import { useParams } from "react-router-dom";
 
 const Job = () => {
-  const [posts, setPosts] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [requirements, setRequirements] = useState("");
+  const [qualifications, setQualifications] = useState([]);
+  const [skills, setSkills] = useState([]);
+  const [benefits, setBenefits] = useState([]);
+  const [responsibilities, setResponsibilities] = useState([]);
   const [typeOfJob, setTypeOfJob] = useState("");
   const [hours, sethHours] = useState("");
   const [locationWork, setLocationWork] = useState("");
   const [country, setCountry] = useState("");
-  const [experience, setExperience] = useState("");
+  const [experience, setExperience] = useState({});
+  const [salary, setSalary] = useState({});
+  const [company, setCompanyInfo] = useState({});
+  const [status, setStatus] = useState("");
   const [showBtns, SetShowBtns] = useState(false);
   const { token } = useContext(userContext);
-  const [filterTitle, SetFilterTitle] = useState([]);
-  const [criteria, SetCriteria] = useState("");
-  const [salaryRange, SetSalary] = useState("");
+  const { posts, setPosts } = useContext(userContext);
+  const [filterResults, SetFilterResults] = useState([]);
+  const [salaryMinRange, SetMinSalary] = useState("");
+  const [salaryMaxRange, SetMaxSalary] = useState("");
+  const [countryOption, SetcountryOption] = useState("");
+  const [typeOfJobOption, SetTypeOfJobOption] = useState("");
+  localStorage.setItem("post", JSON.stringify(posts));
+  let LS = JSON.parse(sessionStorage.getItem("post"));
 
-
-  console.log(criteria);
+  const SalaryFilter = async () => {
+    await axios
+      .get(
+        `http://localhost:5000/jobs/filter/` +
+          salaryMinRange +
+          "/" +
+          salaryMaxRange,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data.result);
+        SetFilterResults(res.data.result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const filter = async (criteria) => {
     await axios
@@ -39,7 +68,7 @@ const Job = () => {
       })
       .then((res) => {
         console.log(res.data.result);
-        SetFilterTitle(res.data.result);
+        SetFilterResults(res.data.result);
       })
       .catch((err) => {
         console.log(err);
@@ -66,7 +95,7 @@ const Job = () => {
   }, []);
   return (
     <>
-      <div className="filt(erDiv">
+      <div className="filterDiv">
         <p className="JobSearch">Job Filter</p>
         <button
           className="filterBtn"
@@ -91,27 +120,121 @@ const Job = () => {
               Type Of Job
             </button> */}
             <div class="dropdown">
-              <button class="dropbtn">Type Of Job</button>
-              <div class="dropdown-content">
-                <a href="#">Full time</a>
-                <a href="#">Part Time</a>
-              </div>
+              <select
+                name="typeOfJob"
+                onClick={(e) => {
+                  filter(e.target.value);
+                }}
+              >
+                <option value="" selected disabled hidden>
+                  Types Of Job
+                </option>
+                <option value="Full-time">Full-time</option>
+                <option value="Part-time">Part-time</option>
+                <option value="Contract">Contract</option>
+                <option value="Temporary">Temporary</option>
+                <option value="Internship">Internship</option>
+                <option value="Freelance">Freelance</option>
+              </select>
             </div>
 
             <div class="dropdown">
-              <button class="dropbtn">Country</button>
-              <div class="dropdown-content">
-                <a href="#">Jordan</a>
-                <a href="#">Part Time</a>
+              <select
+                name="countries"
+                onChange={(e) => {
+                  filter(e.target.value);
+                }}
+              >
+                <option value="" selected disabled hidden>
+                  Countries
+                </option>
+                <option value="United States">United States</option>
+                <option value="Afghanistan">Afghanistan</option>
+                <option value="Albania">Albania</option>
+                <option value="Algeria">Algeria</option>
+                <option value="American Samoa">American Samoa</option>
+                <option value="Andorra">Andorra</option>
+                <option value="Angola">Angola</option>
+                <option value="Armenia">Armenia</option>
+                <option value="Aruba">Aruba</option>
+                <option value="Australia">Australia</option>
+                <option value="Brazil">Brazil</option>
+                <option value="British Indian Ocean Territory">
+                  British Indian Ocean Territory
+                </option>
+                <option value="Bulgaria">Bulgaria</option>
+                <option value="Burundi">Burundi</option>
+                <option value="Cambodia">Cambodia</option>
+                <option value="Cameroon">Cameroon</option>
+                <option value="Canada">Canada</option>
+                <option value="Denmark">Denmark</option>
+                <option value="Egypt">Egypt</option>
+                <option value="Finland">Finland</option>
+                <option value="France">France</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Germany">Germany</option>
+                <option value="Greece">Greece</option>
+                <option value="India">India</option>
+                <option value="Indonesia">Indonesia</option>
+                <option value="Italy">Italy</option>
+                <option value="Jamaica">Jamaica</option>
+                <option value="Japan">Japan</option>
+                <option value="Jordan">Jordan</option>
+                <option value="Qatar">Qatar</option>
+                <option value="Qatar">Saudi Arabia</option>
+                <option value="United Arab Emirates">
+                  United Arab Emirates
+                </option>
+              </select>
+            </div>
+
+            <div className="min-max">
+              <div className="min">
+                <label htmlFor="Min">
+                  Min:
+                  <span className="min-value">
+                    {salaryMinRange ? salaryMinRange : "290"}
+                  </span>
+                </label>
+              </div>
+              <div className="max">
+                <label htmlFor="Max">
+                  Max:
+                  <span className="max-value">
+                    {salaryMaxRange ? salaryMaxRange : "10000"}
+                  </span>
+                </label>
               </div>
             </div>
             <div class="dropdown">
-              <label for="vol">Salary <span>{salaryRange ? "290 - " + (salaryRange) : "290"}</span></label>
-              <input type="range" id="salary" name="salary" min="290" max="5000"
-              onChange={((e)=>{
-                SetSalary(e.target.value)
-                console.log(e.target.value)
-              })} />
+              {/* <label for="salaryRange">
+                Salary{" "}
+                <span>{salaryRange ? "290 - " + salaryRange : "290"}</span>
+              </label> */}
+              <input
+                type="range"
+                className="range"
+                name="salary"
+                min="290"
+                max="5000"
+                onChange={(e) => {
+                  console.log(e);
+                  SetMinSalary(e.target.value);
+                }}
+              />
+              <input
+                type="range"
+                className="range"
+                name="salary"
+                min="5001"
+                max="10000"
+                onChange={(e) => {
+                  console.log(e);
+                  SetMaxSalary(e.target.value);
+
+                  SalaryFilter(Number(salaryMinRange), Number(salaryMaxRange));
+                }}
+              />
             </div>
           </>
         )}
@@ -133,17 +256,30 @@ const Job = () => {
                     console.log(post);
                     setTitle(post.title);
                     setDescription(post.description);
-                    setRequirements(post.requirements);
+                    setResponsibilities(ele.responsibilities);
+                    setQualifications(ele.qualifications);
+                    setBenefits(ele.benefits);
+                    setSkills(ele.skills);
                     setTypeOfJob(post.typeOfJob);
-                    sethHours(post.hours);
+                    sethHours(post.workingHours);
                     setLocationWork(post.locationWork);
                     setCountry(post.country);
                     setExperience(post.experience);
+                    setSalary(post.salary);
+                    setCompanyInfo(post.company);
+                    setStatus(post.status);
                   }}
                 >
                   <div className="card-body">
                     <h5 className="card-title">{ele?.title ?? " "}</h5>
-                    <span className="card-company">Findly LTD. Company</span>
+                    <div className="card-company">
+                      {" "}
+                      <span className="company-name">
+                        {LS[0]?.company.name}
+                      </span>
+                      <span className="company-size">{}</span>{" "}
+                    </div>
+
                     <div className="typeJobDiv">
                       {" "}
                       <ImHome2 />
@@ -154,13 +290,18 @@ const Job = () => {
                     <div className="hoursDiv">
                       <ImClock />
                       <p className="card-hours">
-                        {ele.hours ? ele.hours + " hrs" : " "}
+                        {ele.workingHours ? ele.workingHours + " hrs" : " "}
                       </p>
                     </div>
                     <div className="experienceDiv">
                       <ImBriefcase />
                       <p className="card-experience">
-                        {ele.experience ? ele.experience + " yrs" : " "}
+                        {ele.experience.minYears && ele.experience.maxYears
+                          ? ele.experience.minYears +
+                            " - " +
+                            ele.experience.maxYears +
+                            " yrs"
+                          : " "}
                       </p>
                     </div>
                     <div className="countryDiv">
@@ -178,9 +319,19 @@ const Job = () => {
           </div>
 
           <div className="jobCardDetails">
-            {title && description && requirements ? (
+            {title && description && qualifications && responsibilities ? (
               <div className="card-body-details">
                 {<h5 className="card-title">{title}</h5>}
+                <div className="card-company">
+                  {" "}
+                  <span className="company-name">
+                    {company?.name}{" "}
+                    <span className="company-type">
+                      {" - "}
+                      {company?.companyType}
+                    </span>
+                  </span>
+                </div>
                 <div className="descriptionDiv">
                   {" "}
                   <h5>Job Description</h5>
@@ -190,7 +341,51 @@ const Job = () => {
                 <div className="requirementsDiv">
                   {" "}
                   <h5>Qualifications</h5>{" "}
-                  <p className="card-requirements">{requirements}</p>
+                  {qualifications.map((e, i) => {
+                    return (
+                      <p className="card-requirements" key={i}>
+                        {" - "}
+                        {e}
+                      </p>
+                    );
+                  })}
+                </div>
+
+                <div className="responsibilitiesDiv">
+                  {" "}
+                  <h5>Responsibilities</h5>
+                  {responsibilities.map((e, i) => {
+                    return (
+                      <p className="card-responsibilities" key={i}>
+                        {" - "}
+                        {e}
+                      </p>
+                    );
+                  })}
+                </div>
+                <div className="SkillsDiv">
+                  {" "}
+                  <h5>Skills</h5>
+                  {skills.map((e, i) => {
+                    return (
+                      <p className="card-skills" key={i}>
+                        {" - "}
+                        {e}
+                      </p>
+                    );
+                  })}
+                </div>
+                <div className="benefitsDiv">
+                  {" "}
+                  <h5>Benefits</h5>{" "}
+                  {benefits.map((e, i) => {
+                    return (
+                      <p className="card-benefits" key={i}>
+                        {" - "}
+                        {e}
+                      </p>
+                    );
+                  })}
                 </div>
 
                 <div className="typeJobDiv">
@@ -211,7 +406,12 @@ const Job = () => {
                   {" "}
                   <ImBriefcase />
                   <p className="card-experience">
-                    {experience ? experience + " yrs" : " "}
+                    {experience.minYears && experience.maxYears
+                      ? experience.minYears +
+                        " - " +
+                        experience.maxYears +
+                        " yrs"
+                      : " "}
                   </p>
                 </div>
                 <div className="countryDiv">
@@ -234,15 +434,69 @@ const Job = () => {
             ) : (
               <div className="card-body-details">
                 {<h5 className="card-title">{posts[0]?.title}</h5>}
+                <div className="card-company">
+                  {" "}
+                  <span className="company-name">
+                    {LS[0]?.company.name}{" "}
+                    <span className="company-type">
+                      {" - "}
+                      {LS[0]?.company.companyType}
+                    </span>
+                  </span>
+                </div>
                 <div className="descriptionDiv">
                   {" "}
                   <h5>Job Description</h5>
-                  <p className="card-description">{posts[0]?.description}</p>
+                  <p className="card-description">{LS[0]?.description}</p>
                 </div>
                 <div className="requirementsDiv">
                   {" "}
                   <h5>Qualifications</h5>{" "}
-                  <p className="card-requirements">{posts[0]?.requirements}</p>
+                  {posts[0]?.qualifications.map((e, i) => {
+                    return (
+                      <p className="card-requirements" key={i}>
+                        {" - "}
+                        {e}
+                      </p>
+                    );
+                  })}
+                </div>
+                <div className="responsibilitiesDiv">
+                  {" "}
+                  <h5>Responsibilities</h5>{" "}
+                  {posts[0]?.responsibilities.map((e, i) => {
+                    return (
+                      <p className="card-responsibilities" key={i}>
+                        {" - "}
+                        {e}
+                      </p>
+                    );
+                  })}
+                </div>
+                <div className="SkillsDiv">
+                  {" "}
+                  <h5>Skills</h5>{" "}
+                  {posts[0]?.skills.map((e, i) => {
+                    return (
+                      <p className="card-skills">
+                        {" "}
+                        {" - "}
+                        {e}
+                      </p>
+                    );
+                  })}
+                </div>
+                <div className="benefitsDiv">
+                  {" "}
+                  <h5>Benefits</h5>{" "}
+                  {posts[0]?.benefits.map((e, i) => {
+                    return (
+                      <p className="card-benefits" key={i}>
+                        {" - "}
+                        {e}
+                      </p>
+                    );
+                  })}
                 </div>
                 <div className="typeJobDiv">
                   {" "}
@@ -253,7 +507,9 @@ const Job = () => {
                   {" "}
                   <ImClock />
                   <p className="card-hours">
-                    {posts[0]?.hours ? posts[0]?.hours + " hrs" : " "}
+                    {posts[0]?.workingHours
+                      ? posts[0]?.workingHours + " hrs"
+                      : " "}
                   </p>
                 </div>
 
@@ -262,7 +518,9 @@ const Job = () => {
                   {" "}
                   <ImBriefcase />
                   <p className="card-experience">
-                    {posts[0]?.experience ? posts[0]?.experience + " yrs" : " "}
+                    {posts[0]?.experience.minYears}
+                    {" - "}
+                    {posts[0]?.experience.maxYears + " yrs"}
                   </p>
                 </div>
                 <div className="countryDiv">
