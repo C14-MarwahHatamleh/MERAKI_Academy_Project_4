@@ -15,11 +15,15 @@ const App = () => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [UID, setUID] = useState(localStorage.getItem("UID"));
   const [role, setRole] = useState(localStorage.getItem("role"));
+  const [posts, setPosts] = useState([]);
+  const [filterResults, SetFilter] = useState([]);
+  const [SearchResults, SetSearch] = useState([]);
 
   
   return (
     <>
-      <userContext.Provider value={{ token, setToken, UID, setUID, role, setRole }}>
+      <userContext.Provider 
+      value={{ posts, setPosts, token, setToken, UID, setUID, role, setRole ,filterResults, SetFilter,SearchResults, SetSearch }}>
         <div className="App">
          <Navigation/>
         </div>
