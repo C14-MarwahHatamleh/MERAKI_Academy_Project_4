@@ -6,7 +6,7 @@
  </a>
 </p>
 
-<h3 align="center">Project Title
+<h3 align="center">JOB SEARCH WEBSITE
 </h3>
 
 ---
@@ -30,13 +30,14 @@
 
 ## 🧐 About <a name = "about"></a>
 
-Write about 1-2 paragraphs describing the purpose of your project.
-
-Ex. Are you looking for a quick and easy way to action, action, and action? The **(name of application)** is the greatest and most accurate application to do this for you. It helps you to **(list of activities)**. The **(name of application)** provides a simple design to ensure having the best user experience.
+The Idea from my project **(JOB SEARCH WEBSITE)** as every company needs a website to adding any job or application to their website to make all job Seekers to know they are hiring , the Idea from my Project is created a own website for specific company specially with responsive design and make the job Seekers to filter and Search on any job they wanna it on that company across it's Branches.
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+- Create a repo on a GITHUB 
+- Clone the project 
+- started to create files that needed into ur project
+- Installing a pkgs that will u needed them in ur pkg
 
 ### Prerequisites
 
@@ -75,13 +76,16 @@ Now app ready to use
 
 ## 🎈 Usage <a name="usage"></a>
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-Ex.
-
-- You don't have to register to navigate our web app
-- You can click on the **Home** tab provided in the navigation bar to view the home section
-- You can click on the **Add to cart** button to add this product to your cart but you have to be one of our users, so you should create an account
+- Sign In
+- Sign Up
+- Search 
+- Filter 
+- Show All User Apps jobs
+- Profile
+- pagination 
+- responsive Design  
+- auth and authz 
+- apply to any job via apply now btn 
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
