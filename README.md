@@ -2,7 +2,7 @@
 
 <p align="center">
 <a href="https://www.meraki-academy.org" target="_blank" rel="noopener noreferrer">
- <img width="400px" height="100px" src="https://www.meraki-academy.org/assets/img/logov02.svg" alt="Project logo">
+MERAKI-ACADEMY
  </a>
 </p>
 
@@ -34,8 +34,8 @@ The Idea from my project **(JOB SEARCH WEBSITE)** as every company needs a websi
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
-- Create a repo on a GITHUB 
-- Clone the project 
+- Create a repo on a GITHUB
+- Clone the project
 - started to create files that needed into ur project
 - Installing a pkgs that will u needed them in ur pkg
 
@@ -78,14 +78,14 @@ Now app ready to use
 
 - Sign In
 - Sign Up
-- Search 
-- Filter 
+- Search
+- Filter
 - Show All User Apps jobs
 - Profile
-- pagination 
-- responsive Design  
-- auth and authz 
-- apply to any job via apply now btn 
+- pagination
+- responsive Design
+- auth and authz
+- apply to any job via apply now btn
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
