@@ -1,6 +1,5 @@
 # Project_4
 
-
 <p align="center">
 <a href="https://www.meraki-academy.org" target="_blank" rel="noopener noreferrer">
  <img width="400px" height="100px" src="https://www.meraki-academy.org/assets/img/logov02.svg" alt="Project logo">
@@ -16,6 +15,7 @@
     <br> 
 <a href=''>Demo</a>
     <br> 
+    <a href='https://www.canva.com/design/DAGngzkXVJo/8QeMPjwiWU_Wg56ePWyA5Q/edit'>Presentation</a>
 </p>
 
 ## 📝 Table of Contents
@@ -40,10 +40,10 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-- Visual Studio Code follow this <a href=''>link</a> to install.
-- Git Bash follow this <a href=''>link</a> to install.
-- MongoDB follow this <a href=''>link</a> to install.
-- Node.js follow this <a href=''>link</a> to install.
+- Visual Studio Code follow this <a href='https://code.visualstudio.com/'>link</a> to install.
+- Git Bash follow this <a href='https://git-scm.com/downloads'>link</a> to install.
+- MongoDB follow this <a href='https://www.mongodb.com/try/download/community-kubernetes-operator'>link</a> to install.
+- Node.js follow this <a href='https://nodejs.org/en/download'>link</a> to install.
 
 ### Installing:
 
@@ -93,7 +93,7 @@ Ex.
 ## User Story <a name = "#user_story"></a>
 
 Your trello board link
-<a href=''>Trello</a>
+<a href='https://trello.com/b/IPWFSuhq/project-4'>Trello</a>
 
 ## Data Flow <a name = "#data_flow"></a>
 
