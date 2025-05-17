@@ -6,10 +6,12 @@ const {
   loginUser,
   getAllUsers,
   LoggedUser,
+  FindUserByID,
 } = require("../controllers/usersControllers");
 
 userRouter.post("/register", createUser);
 userRouter.post("/login", loginUser);
 userRouter.get("/", getAllUsers);
+userRouter.get("/byId/:id/profile", FindUserByID);
 
 module.exports = userRouter;
