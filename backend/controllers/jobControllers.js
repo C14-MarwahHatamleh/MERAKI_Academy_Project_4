@@ -36,6 +36,7 @@ const createNewJob = async (req, res) => {
     status,
     user: token,
     comments: [],
+    applications: [],
   });
   newJob
     .save()
@@ -78,13 +79,26 @@ const createNewJob = async (req, res) => {
 };
 
 const getAllJobs = async (req, res) => {
+  const page = req.query.page;
+  const limit = req.query.limit;
+
   await jobModel
-    .find({})
-    .populate("comments").sort({postingDate: 'descending'})
+    .find()
+    .populate("applications")
+    .populate("comments")
+    .sort({ postingDate: "descending" })
+    .skip(page * limit)
+    .limit(limit)
+    .lean()
+    // /.skip((page - 1) * limit)
+    //.limit(limit)
     .then((result) => {
       res.status(200).json({
+        limit: limit,
+        page: page,
         success: true,
         message: "All the jobs",
+        totalJobs: result.length,
         jobs: result,
       });
     })
@@ -97,6 +111,7 @@ const getAllJobs = async (req, res) => {
     });
 };
 
+// red from marwa
 // const getJobByAuthor = async (req, res) => {
 //   try {
 //     console.log(req.query.authorId);
@@ -124,14 +139,22 @@ const getAllJobs = async (req, res) => {
 // };
 
 const getJobBySearch = async (req, res) => {
-  console.log(req)
+  console.log(req.query.page)
+   const page = (req.query.page) -1
+  const limit = req.query.limit;
+  console.log(req);
   await jobModel
     .find({
       $or: [
         { title: req.query.search },
-        { description: {$regex : req.query.search , '$options' : 'i' }  },
+        { description: { $regex: req.query.search, $options: "i" } },
+        { skills: { $in: [req.query.search] } },
       ],
     })
+    .sort({ postingDate: "descending" })
+    .skip(page * limit)
+    .limit(limit)
+    .lean()
     .then((result) => {
       res.status(200).json({
         success: true,
@@ -170,18 +193,40 @@ const getJobById = async (req, res) => {
 
 const updateJobById = async (req, res) => {
   const { id } = req.params.id;
-  const { title, description, requirements, typeOfJob, hours, locationWork } =
-    req.body;
+  const {
+    title,
+    company,
+    description,
+    responsibilities,
+    qualifications,
+    skills,
+    benefits,
+    typeOfJob,
+    workingHours,
+    salary,
+    locationWork,
+    country,
+    experience,
+    status,
+  } = req.body;
   console.log(req.params.id, req.body);
   await jobModel
     .findOneAndUpdate(id, {
       $set: {
         title: title,
+        company: company,
         description: description,
-        requirements: requirements,
+        responsibilities: responsibilities,
+        qualifications: qualifications,
+        skills: skills,
+        benefits: benefits,
         typeOfJob: typeOfJob,
-        hours: hours,
+        workingHours: workingHours,
+        salary: salary,
         locationWork: locationWork,
+        country: country,
+        experience: experience,
+        status: status,
       },
     })
     .then((result) => {
@@ -246,6 +291,10 @@ const deleteJobByUser = async (req, res) => {
 };
 
 const getJobByFilter = async (req, res) => {
+  const page = req.query.page || 1;
+    const limit = req.query.limit || 100;
+
+
   console.log(req.params.criteria.toLowerCase());
   await jobModel
     .find({
@@ -261,6 +310,9 @@ const getJobByFilter = async (req, res) => {
         { country: req.params.criteria.toLowerCase() },
       ],
     })
+    .skip(page * limit)
+    .limit(limit)
+    .lean()
     .then((result) => {
       res.status(200).json({
         success: true,
