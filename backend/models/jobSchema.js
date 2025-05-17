@@ -68,13 +68,15 @@ const jobSchema = new mongoose.Schema({
     trim: true,
     enum: {
       values: [
-      "Full-time",
-      "Part-time",
-      "Contract",
-      "Temporary",
-      "Internship",
-      "Freelance",
-    ], message: 'Status is required.'}
+        "Full-time",
+        "Part-time",
+        "Contract",
+        "Temporary",
+        "Internship",
+        "Freelance",
+      ],
+      message: "Status is required.",
+    },
   },
   workingHours: {
     type: String,
@@ -133,16 +135,18 @@ const jobSchema = new mongoose.Schema({
     type: [mongoose.Schema.Types.ObjectId],
     ref: "Comment",
   },
+  applications: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "ApplyJob",
+  },
 });
-
 
 jobSchema.pre("save", async function () {
-  this.title = (this.title.toLowerCase()).trim();
-  this.typeOfJob = (this.typeOfJob.toLowerCase()).trim();
-  this.locationWork = (this.locationWork.toLowerCase()).trim();
-  this.country = (this.country.toLowerCase()).trim();
+  this.title = this.title.toLowerCase().trim();
+  this.typeOfJob = this.typeOfJob.toLowerCase().trim();
+  this.locationWork = this.locationWork.toLowerCase().trim();
+  this.country = this.country.toLowerCase().trim();
 });
-
 
 const jobModel = mongoose.model("JobDetails", jobSchema);
 
