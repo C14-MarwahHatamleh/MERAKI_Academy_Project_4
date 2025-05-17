@@ -1,0 +1,71 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+.main{
+  width: 100%;
+
+  display: flex;
+  margin-top: 100px;
+  align-items: center;
+  justify-content: center;
+  background-position: center;
+  background-size: cover;
+  margin-bottom: 100px;
+}
+.profile-card{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 700px;
+  width: 100%;
+  border-radius: 25px;
+  padding: 30px;
+  border: 1px solid #ffffff40;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+  
+}
+.image{
+  position: relative;
+  height: 150px;
+  width: 150px;
+}
+
+.data{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+}
+.data h2{
+  font-size: 33px;
+  font-weight: 600;
+}
+
+.row{
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+}
+.row .info{
+
+  text-align: center;
+  padding: 0 20px;
+
+   letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  outline: none;
+}
+.buttons{
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+}
