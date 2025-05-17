@@ -4,105 +4,210 @@ import { Link, useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { userContext } from "react";
 import axios from "axios";
+import { userContext } from "../../App";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import Button from "@mui/material/Button";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
+import HomeIcon from "@mui/icons-material/Home";
+import WorkIcon from "@mui/icons-material/Work";
+import PersonIcon from "@mui/icons-material/Person";
+import MenuIcon from "@mui/icons-material/Menu";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import PlaceIcon from "@mui/icons-material/Place";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const Navigation = () => {
+  let arr;
   const navigate = useNavigate();
-   // const { token } = useContext(userContext);
+  const { token, setToken } = useContext(userContext);
   const [searchResults, setSearchResults] = useState([]);
   const [searchInput, setSearchInput] = useState("");
-console.log(searchResults)
-  const Search = async () => {
-    await axios
-      .get(`http://localhost:5000/jobs/search`, {
-        
-        params: {
-          search: searchInput,
-        },
-        // headers: {
-        //   Authorization: `Bearer ${token}`,
-        // },
-      })
-      .then((res) => {
-        console.log(res.data);
-        setSearchResults(res.data.result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const [open, setOpen] = React.useState(false);
+
+  const { UID } = useContext(userContext);
+  {
+    token
+      ? (arr = ["Home", "Jobs", "Profile", "My Applications", "Location"])
+      // eslint-disable-next-line no-unused-vars
+      : (arr = ["Home", "Jobs", "Location", "Contact", "Journal"]);
+  }
+  const Logout = () => {
+    setToken(null);
+    localStorage.clear("token");
+    navigate("/signup-login");
   };
 
-  useEffect(() => {
-    Search()
-  });
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
 
+  const DrawerList = (
+    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+      <List sx={{ anchor: "right" }}>
+        {arr.map(
+          (text, index) => (
+            <ListItem key={index} disablePadding>
+              <ListItemButton
+                id={index}
+                onClick={(e) => {
+                  {
+                    e.target.innerText === "Home"
+                      ? navigate("/home")
+                      : e.target.innerText === "Jobs"
+                      ? navigate("/jobs")
+                      : e.target.innerText === "Profile"
+                      ? navigate(`/${UID}/profile`)
+                      : e.target.innerText === "My Applications"
+                      ? navigate(`/${UID}/my-applications`)
+                      : navigate("/location");
+                  }
+                }}
+              >
+                <ListItemIcon>
+                  {index === 0 ? (
+                    <HomeIcon />
+                  ) : index === 1 ? (
+                    <WorkIcon />
+                  ) : index === 2 ? (
+                    <PersonIcon />
+                  ) : index === 3 ? (
+                    <ListAltIcon />
+                  ) : (
+                    <PlaceIcon />
+                  )}
+                  {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          )
+        )}
+      </List>
+      <Divider />
+     
+      <List>
+        <ListItem disablePadding>
+          {" "}
+          <ListItemButton onClick= {Logout} >
+            <ListItemIcon>
+              {" "}
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText primary=  {token ?  "Log Out" : "Log In / Register"} />
+          </ListItemButton>
+        </ListItem>
+      </List>
+    </Box>
+  );
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        {/* <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarTogglerDemo01"
-          aria-controls="navbarTogglerDemo01"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button> */}
-
-        <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-          <span className="logo">
-            Find<span className="ly">ly</span>{" "}
-          </span>
-          <ul className="navbar-nav">
-            <li className="nav-item ">
-              <Nav.Link className="nav-link" href="/Home">
-                Home
-              </Nav.Link>
-            </li>
-            <li className="nav-item">
-              <Nav.Link className="nav-link" href="/jobs">
-                Jobs
-              </Nav.Link>
-            </li>
-            <li className="nav-item">
-              <Nav.Link className="nav-link" href="#">
-                Location
-              </Nav.Link>
-            </li>
-            <li className="nav-item">
-              <Nav.Link className="nav-link" href="#">
-                Contact
-              </Nav.Link>
-            </li>
-            <li className="nav-item">
-              <Nav.Link className="nav-link" href="#">
-                Journal
-              </Nav.Link>
-            </li>
-          </ul>
-        </div>
-        <input
-          onInput={(e) => {
-            setSearchInput(e.target.value);
-          }}
-          className="input_Search"
-          type="search"
-          placeholder="Job titles, Keywords..."
-          aria-label="Search"
-        />
-        <button
-          onClick={(e) => {
-            navigate("/Register");
-          }}
-          className="signIn_signUpBtn"
-        >
-          Login In / Register
-        </button>
-      </nav>
+      <>
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
+          <div class="container-fluid">
+            <span className="logo">
+              <a href="/home">
+                {" "}
+                Find<span className="ly">ly</span>{" "}
+              </a>
+            </span>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <div>
+                <Button onClick={toggleDrawer(true)}>
+                  <MenuIcon /> Menu
+                </Button>
+                <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
+                  {DrawerList}
+                </Drawer>
+              </div>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                <li className="nav-item active ">
+                  <Nav.Link className="nav-link" href="/home">
+                    Home
+                  </Nav.Link>
+                </li>
+                <li className="nav-item">
+                  <Nav.Link className="nav-link" href="/jobs">
+                    Jobs
+                  </Nav.Link>
+                </li>
+                <li className="nav-item">
+                  <Nav.Link
+                    className="nav-link"
+                    href={token ? `/${UID}/profile` : `/location`}
+                  >
+                    {token ? "Profile" : "Location"}
+                  </Nav.Link>
+                </li>
+                <li className="nav-item">
+                  <Nav.Link
+                    className="nav-link"
+                    href={token ? `/${UID}/my-applications` : `/#`}
+                  >
+                    {token ? "My Applications" : "Contacts"}
+                  </Nav.Link>
+                </li>
+                <li className="nav-item">
+                  <Nav.Link
+                    className="nav-link"
+                    href={token ? `/location` : `/journal`}
+                  >
+                    {token ? "Location" : "Journal"}
+                  </Nav.Link>
+                </li>
+              </ul>
+              {token ? (
+                <button class="button" onClick={Logout}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="svgIcon"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
+                    />
+                  </svg>
+                </button>
+              ) : (
+                <button
+                  className="LogIn_Register"
+                  onClick={(e) => {
+                    navigate("/signup-login");
+                  }}
+                >
+                  Log In / Register
+                </button>
+              )}
+            </div>
+          </div>
+        </nav>
+      </>
     </>
   );
 };
