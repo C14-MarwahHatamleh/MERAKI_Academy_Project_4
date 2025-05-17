@@ -8,10 +8,9 @@ const jwt = require("jsonwebtoken");
 const SECRET = process.env.SECRET;
 const TOKEN_EXP_Time = process.env.EXPIRESIN;
 
-const createUser = (req, res) => {
+const createUser = async (req, res) => {
   try {
-    const { firstName, lastName, age, country, email, password } =
-      req.body;
+    const { firstName, lastName, age, country, email, password } = req.body;
 
     const newUser = new UserModel({
       firstName,
@@ -20,15 +19,22 @@ const createUser = (req, res) => {
       country,
       email,
       password,
-      role :"681b3c11b5b003d37afd7489",
+      role: "681b3c11b5b003d37afd7489",
     });
 
+    // const findUser = await UserModel.findOne({
+    //   email: email.toLowerCase(),
+    // }).exec();
+    // console.log(findUser);
     newUser
       .save()
-      .then((result) => {
+      .then(async (result) => {
+       
+        const token = await generateTokens(result);
         res.status(201).json({
           success: true,
           message: "Account Created Successfully",
+          token: token,
           author: result,
         });
       })
@@ -80,65 +86,85 @@ const loginUser = async (req, res) => {
 };
 
 const getAllUsers = (req, res) => {
-    UserModel
-      .find({})
-      .then((result) => {
-        res.status(200).json({
-          success: true,
-          message: "Get All Users",
-          Users: result,
-        });
-      })
-      .catch((err) => {
-        res.status(404).json({
-          success: false,
-          message: "Can not get the users",
-        });
-      });
-  };
-  
-
-const generateTokens = async (user) => {
-    let returnValue;
-    if (user !== null) {
-      const id = user.role;
-      const role = await roleModel.findOne({ _id: id }).exec();
-      console.log(role);
-      const payload = {
-        country: user.country,
-        userID: user._id,
-        role: {
-          role: role.role,
-          permissions: role.permissions,
-        },
-      };
-      const options = {
-        expiresIn: TOKEN_EXP_Time,
-      };
-      returnValue =  jwt.sign(payload, SECRET, options);
-    }
-     else {
-      returnValue = "Sorry there is no any role for this email";
-    }
-    console.log(returnValue)
-    return returnValue;
-  };
-  
-  const LoggedUser = async (req, res) => {
-    const token = req.token.userID;
-    const findUser = await UserModel.findOne({ _id: token }).exec();
-  
-    if (findUser) {
+  UserModel.find({})
+    .then((result) => {
       res.status(200).json({
         success: true,
-        message: "User Found",
-        data: findUser,
+        message: "Get All Users",
+        Users: result,
       });
-    } else {
-      res.status(400).json({
+    })
+    .catch((err) => {
+      res.status(404).json({
         success: false,
-        message: "User not Found",
+        message: "Can not get the users",
       });
-    }
-  };
-module.exports = { createUser , loginUser , getAllUsers , LoggedUser};
+    });
+};
+
+
+const FindUserByID = async (req, res) => {
+  await UserModel
+    .find({ _id: req.params.id })
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        message: `The User is Found`,
+        user: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Can not get the user",
+        err: err.message,
+      });
+    });
+};
+
+
+const generateTokens = async (user) => {
+  let returnValue;
+  if (user !== null) {
+    const id = user.role;
+    const role = await roleModel.findOne({ _id: id }).exec();
+    console.log(role);
+    const payload = {
+      country: user.country,
+      userID: user._id,
+      role: {
+        role: role.role,
+        permissions: role.permissions,
+      },
+    };
+    const options = {
+      expiresIn: TOKEN_EXP_Time,
+    };
+    returnValue = jwt.sign(payload, SECRET, options);
+  } else {
+    returnValue = "Sorry there is no any role for this email";
+  }
+  console.log(returnValue);
+  return returnValue;
+};
+
+
+
+const LoggedUser = async (req, res) => {
+  const token = req.token.userID;
+  const findUser = await UserModel.findOne({ _id: token }).exec();
+
+  if (findUser) {
+    res.status(200).json({
+      success: true,
+      message: "User Found",
+      data: findUser,
+    });
+  } else {
+    res.status(400).json({
+      success: false,
+      message: "User not Found",
+    });
+  }
+};
+module.exports = { createUser, loginUser, getAllUsers, LoggedUser , FindUserByID };
