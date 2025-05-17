@@ -1,0 +1,13 @@
+.AdminPanelContainer{
+  height: 50px;
+  width: 100vw;
+  background-color: aliceblue;
+}
+
+.AdminPanelContainer .Buttons{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-left: 20px;
+
+}

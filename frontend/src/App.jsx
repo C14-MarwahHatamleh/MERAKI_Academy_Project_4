@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import Profile from "./components/Profile/Profile";
 import Applications from "./components/Applications/Applications";
 import axios from "axios";
+import AdminPanel from "./AdminPanel/AdminPanel";
 
 export const userContext = createContext();
 
@@ -53,8 +54,8 @@ const App = () => {
           setID,
           userInfo,
           setUserInfo,
-          applications, 
-          setApplications
+          applications,
+          setApplications,
         }}
       >
         <div className="App">
@@ -73,15 +74,15 @@ const App = () => {
               <Route path="/:id/my-applications" element={<Applications />} />
               {/* <Route path="/Login" element={<Login/>} /> */}
               <Route path="/ReportProblem" element={<ReportProblem />} />
+              <Route path="/adminPanel" element={<AdminPanel />} />
+              
               {/* <Route path="*" component={Missing} /> */}
             </Routes>
           }
           {/* {location.pathname !== "/signup-login" && <Footer />
             ? window.location.reload()
             : ""} */}
-            {/* {location.pathname !== "/signup-login" &&<Footer/>}  */}
-           
-
+          {/* {location.pathname !== "/signup-login" &&<Footer/>}  */}
         </>
       </userContext.Provider>
     </>

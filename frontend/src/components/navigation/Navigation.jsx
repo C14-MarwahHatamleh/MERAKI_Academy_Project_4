@@ -149,6 +149,14 @@ const Navigation = () => {
                     Jobs
                   </Nav.Link>
                 </li>
+                    <li className="nav-item">
+                  <Nav.Link
+                    className="nav-link"
+                    href={`/adminPanel`}
+                  >
+                   AdminPanel
+                  </Nav.Link>
+                </li>
                 <li className="nav-item">
                   <Nav.Link
                     className="nav-link"
