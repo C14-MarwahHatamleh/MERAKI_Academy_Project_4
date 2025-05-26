@@ -78,12 +78,14 @@ Now app ready to use
 
 - Sign In
 - Sign Up
+- Full Features for Admin (Admin Panel to add job , deletejob , edit job , get all applications and all users)
 - Search
+- Navigation fot User and Admin based on role
 - Filter
 - Show All User Apps jobs
 - Profile
 - pagination
-- responsive Design
+- Responsive Design
 - auth and authz
 - apply to any job via apply now btn
 
