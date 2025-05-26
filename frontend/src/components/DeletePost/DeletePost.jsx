@@ -30,7 +30,7 @@ const DeletePost = () => {
         console.log(err);
       });
   };
-  
+
   const DeleteJob = async () => {
     await axios
       .delete(`http://localhost:5000/jobs/delete/${id}`, {
@@ -58,7 +58,7 @@ const DeletePost = () => {
 
   useEffect(()=>{
     getAllJobs()
-  })
+  },[])
   return (
     <div class="deletePostDiv">
       <p className="introDelete">Select a job that you want to delete it.</p>
