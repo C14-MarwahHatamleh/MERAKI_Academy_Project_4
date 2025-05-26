@@ -14,7 +14,13 @@ import { useEffect } from "react";
 import Profile from "./components/Profile/Profile";
 import Applications from "./components/Applications/Applications";
 import axios from "axios";
-import AdminPanel from "./AdminPanel/AdminPanel";
+import AdminPanel from "./components/AdminPanel/AdminPanel";
+import DeletePost from "./components/DeletePost/DeletePost";
+import AddPost from "./components/AddPost/AddPost";
+import GetAllApps from "./components/GetAllApps/GetAllApps";
+import EditJobPost from "./components/EditJobPost/EditJobPost";
+import GetAllUsers from "./components/GetAllUsers/GetAllUsers";
+import NavigationAdmin from "./components/NavigationAdmin/NavigationAdmin";
 
 export const userContext = createContext();
 
@@ -59,7 +65,7 @@ const App = () => {
         }}
       >
         <div className="App">
-          <Navigation />
+          {role === "ADMIN" ? <NavigationAdmin /> : <Navigation />}
         </div>
 
         <>
@@ -75,7 +81,13 @@ const App = () => {
               {/* <Route path="/Login" element={<Login/>} /> */}
               <Route path="/ReportProblem" element={<ReportProblem />} />
               <Route path="/adminPanel" element={<AdminPanel />} />
-              
+
+              <Route path="/AddPost" element={<AddPost />} />
+              <Route path="/DeletePost" element={<DeletePost />} />
+              <Route path="/EditPost" element={<EditJobPost />} />
+              <Route path="/GetAllApplications" element={<GetAllApps />} />
+              <Route path="/GetAllUsers" element={<GetAllUsers />} />
+
               {/* <Route path="*" component={Missing} /> */}
             </Routes>
           }

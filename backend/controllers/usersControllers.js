@@ -86,7 +86,7 @@ const loginUser = async (req, res) => {
 };
 
 const getAllUsers = (req, res) => {
-  UserModel.find({})
+  UserModel.find({}).populate("role")
     .then((result) => {
       res.status(200).json({
         success: true,

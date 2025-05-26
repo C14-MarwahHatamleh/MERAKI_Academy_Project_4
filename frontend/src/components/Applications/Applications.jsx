@@ -14,6 +14,11 @@ const Applications = () => {
   const [userApplications, setUserApplications] = useState([]);
   const { token } = useContext(userContext);
 
+
+
+
+
+
   const getUserApplications = () => {
     axios
       .get(`http://localhost:5000/jobs/${id}/applications`, {
@@ -46,28 +51,41 @@ const Applications = () => {
             return (
               <div className="cards-app" key={i}>
                 <div className="card-body">
-                    <p className="intro"> Application{" "}{i+1}</p>
+                  <p className="intro"> Application {i + 1}</p>
                   <div className="class-email">
                     <p lassName="card-email cardDiv"> Email :{ele.Email}</p>
                   </div>
                   <div className="class-phone">
-                    <p className="card-typeOfWork cardDiv">Phone : {ele.Phone}</p>
+                    <p className="card-typeOfWork cardDiv">
+                      Phone : {ele.Phone}
+                    </p>
                   </div>
-
+                  <div className="class-title">
+                    <p className="card-title cardDiv">Title : {ele.title}</p>
+                  </div>
                   <div className="class-name">
                     {" "}
-                    <p className="card-name cardDiv"> Name :
-                      {ele.firstName + " " + ele.lastName}
+                    <p className="card-name cardDiv">
+                      {" "}
+                      Name :{ele.firstName + " " + ele.lastName}
                     </p>
                   </div>
                   <div className="class-salary">
-                    <p className="card-salary cardDiv"> Salary : {ele.salary}</p>
+                    <p className="card-salary cardDiv">
+                      {" "}
+                      Salary : {ele.salary}
+                    </p>
                   </div>
                   <div className=" class-experience">
-                    <p className="card-experience cardDiv"> Years Of Experiences : {ele.yearsOfExperiences}</p>
+                    <p className="card-experience cardDiv">
+                      {" "}
+                      Years Of Experiences : {ele.yearsOfExperiences}
+                    </p>
                   </div>
                   <div className="countryDiv">
-                    <p className="card-country cardDiv">Country : {ele.country}</p>
+                    <p className="card-country cardDiv">
+                      Country : {ele.country}
+                    </p>
                   </div>
                   <div className="class-applyDate">
                     <p className="card-applyDate cardDiv">

@@ -32,10 +32,8 @@ letter-spacing: 2.5px;
 }
 
 .JobWithFindly{
-    align-self: center;
-   letter-spacing: 2.5px;
-
-
+   align-self: center;
+   /* letter-spacing: 2.5px; */
 }
 
 .Gets-jobs{

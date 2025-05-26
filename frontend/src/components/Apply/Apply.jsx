@@ -19,7 +19,6 @@ const Apply = () => {
 
   console.log(userInfo);
 
-
   const Apply = () => {
     axios
       .post(
@@ -108,6 +107,18 @@ const Apply = () => {
                 placeholder=""
               />
               <label>Email</label>
+              <span class="focus-border"></span>
+            </div>
+            <div class="col-3 input-effect">
+              <input
+                onChange={(e) => {
+                  setUserInfo({ ...userInfo, title: e.target.value });
+                }}
+                class="effect-16"
+                type="text"
+                placeholder=""
+              />
+              <label>Title Job</label>
               <span class="focus-border"></span>
             </div>
             <div class="col-3 input-effect">
@@ -215,9 +226,8 @@ const Apply = () => {
               Apply();
               uploadImage();
               setTimeout(() => {
-                window.location.reload()
+                window.location.reload();
               }, 6000);
-             
             }}
           >
             Submit

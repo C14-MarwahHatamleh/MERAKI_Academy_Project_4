@@ -247,7 +247,7 @@ const updateJobById = async (req, res) => {
 
 const deleteJobById = async (req, res) => {
   const { id } = req.params.id;
-
+console.log(req.params.id)
   await jobModel
     .findOneAndDelete(id)
     .then((result) => {
