@@ -78,9 +78,10 @@ Now app ready to use
 
 - Sign In
 - Sign Up
-- Full Features for Admin (Admin Panel to add job , deletejob , edit job , get all applications and all users)
+- Full Features for Admin (Admin Panel to add job, delete job, edit job, get all applications and all users)
+- Deactivated User as (first Step is checking email, then delete a user and navigate it to the login-signUp page)
 - Search
-- Navigation fot User and Admin based on role
+- Navigation for User and Admin based on role
 - Filter
 - Show All User Apps jobs
 - Profile
