@@ -18,29 +18,7 @@ const DeactivatedUser = () => {
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
-  //   const FindEmailUser = () => {
-  //     axios
-  //       .get(`http://localhost:5000/users/byEmail/${email}`, {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       })
-  //       .then((res) => {
-  //         setMsg("Email is correct");
-  //         setSuccess(true);
-  //         setTimeout(() => {
-  //           setMsg("");
-  //         }, 3000);
-  //         // console.log([...posts, res.data.jobs])
-  //       })
-  //       .catch((err) => {
-  //         setMsg("Email is not correct");
-  //         setSuccess(false);
-  //         setTimeout(() => {
-  //           setMsg("");
-  //         }, 3000);
-  //       });
-  //   };
+
 
   const DeactivatedUser = () => {
     axios
