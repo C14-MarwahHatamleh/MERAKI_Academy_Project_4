@@ -9,11 +9,13 @@ import { useContext } from "react";
 import { userContext } from "../../App";
 
 const Profile = () => {
-  const [userInfoProfile, setUserInfoProfile] = useState([]);
+  const [info, setInfo] = useState({});
   const { token } = useContext(userContext);
   const { id } = useParams();
-  console.log(userInfoProfile);
-  const getUser = () => {
+
+  console.log("userInfoProfile", info);
+
+  const getUserInfo = () => {
     axios
       .get(`http://localhost:5000/users/byId/${id}/profile`, {
         headers: {
@@ -21,42 +23,50 @@ const Profile = () => {
         },
       })
       .then((res) => {
-        console.log("res", res.data.user);
-        setUserInfoProfile(res.data.user);
-        localStorage.setItem("User", JSON.stringify(res.data.user));
+        console.log("res", res);
+        setInfo(res.data.user[0]);
+        // localStorage.setItem("User", JSON.stringify(res.data.user));
         // console.log([...posts, res.data.jobs])
       })
       .catch((err) => {
         console.log(err);
       });
   };
-  let LS = JSON.parse(localStorage.getItem("User"));
 
-  getUser();
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
 
   return (
     <>
+
+   
       <div className="main">
         <div class="profile-card">
           {/* <div class="image">
             <img src="" alt="" class="profile-pic" />
           </div> */}
           <div class="data">
-            <h2>{LS[0]["firstName"] + " " + LS[0]["lastName"]}</h2>
+            <h2>
+              {info.firstName +
+                " " +
+                info.lastName}
+            </h2>
             <span></span>
           </div>
           <div class="row">
             <div class="info">
               <h4>Email</h4>
-              {LS[0]["email"]}
+              {info.email}
             </div>
             <div class="info">
               <h4>Country</h4>
-              {LS[0]["country"]}
+              {info.country}
             </div>
             <div class="info">
               <h4>Age</h4>
-              {LS[0]["age"]}
+              {info.age}
             </div>
           </div>
         </div>
