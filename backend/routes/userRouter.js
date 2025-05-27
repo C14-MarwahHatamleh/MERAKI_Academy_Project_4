@@ -9,6 +9,8 @@ const {
   getAllUsers,
   LoggedUser,
   FindUserByID,
+  DeleteUserById,
+  FindEmailUser,
 } = require("../controllers/usersControllers");
 
 userRouter.post("/register", createUser);
@@ -20,5 +22,15 @@ userRouter.get(
   getAllUsers
 );
 userRouter.get("/byId/:id/profile", FindUserByID);
+userRouter.delete(
+  "/:id/deleteUser",
+  authMiddlewares,
+  authzMiddlewares("DELETE-USERS"),
+  DeleteUserById
+);
+
+userRouter.get("/byEmail/:email", FindEmailUser);
+
+
 
 module.exports = userRouter;

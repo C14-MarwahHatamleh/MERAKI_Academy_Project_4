@@ -1,14 +1,16 @@
 import "./style.css";
 
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useContext } from "react";
 import { userContext } from "../../App";
+import { Button } from "antd";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const [info, setInfo] = useState({});
   const { token } = useContext(userContext);
   const { id } = useParams();
@@ -37,22 +39,15 @@ const Profile = () => {
     getUserInfo();
   }, []);
 
-
   return (
     <>
-
-   
       <div className="main">
         <div class="profile-card">
           {/* <div class="image">
             <img src="" alt="" class="profile-pic" />
           </div> */}
           <div class="data">
-            <h2>
-              {info.firstName +
-                " " +
-                info.lastName}
-            </h2>
+            <h2>{info.firstName + " " + info.lastName}</h2>
             <span></span>
           </div>
           <div class="row">
@@ -68,6 +63,15 @@ const Profile = () => {
               <h4>Age</h4>
               {info.age}
             </div>
+            <button
+              type="button"
+              class="btn btn-light btn-md"
+              onClick={(e) => {
+                navigate(`/${id}/deactivatedUser`);
+              }}
+            >
+              Deactivated User
+            </button>
           </div>
         </div>
       </div>

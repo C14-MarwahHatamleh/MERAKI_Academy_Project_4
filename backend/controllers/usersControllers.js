@@ -29,7 +29,6 @@ const createUser = async (req, res) => {
     newUser
       .save()
       .then(async (result) => {
-       
         const token = await generateTokens(result);
         res.status(201).json({
           success: true,
@@ -86,7 +85,8 @@ const loginUser = async (req, res) => {
 };
 
 const getAllUsers = (req, res) => {
-  UserModel.find({}).populate("role")
+  UserModel.find({})
+    .populate("role")
     .then((result) => {
       res.status(200).json({
         success: true,
@@ -102,10 +102,54 @@ const getAllUsers = (req, res) => {
     });
 };
 
+const FindEmailUser = async (req, res) => {
+  await UserModel.findOne({ email: req.params.email.toLowerCase() })
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        message: `The User is Found`,
+        user: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+        err: err.message,
+      });
+    });
+};
+
+const DeleteUserById = async (req, res) => {
+  const FindUser = await UserModel.findOne({
+    email: req.query.email.toLowerCase(),
+  }).exec();
+  if (FindUser) {
+    await UserModel.findOneAndDelete({ _id: req.params.id })
+      .then((result) => {
+        res.status(200).json({
+          success: true,
+          message: `The User has been deleted`,
+          user: result,
+        });
+      })
+      .catch((err) => {
+        res.status(500).json({
+          success: false,
+          message: "Server Error",
+          err: err.message,
+        });
+      });
+  } else {
+    res.status(500).json({
+      success: false,
+      message: "Sorry the email doesn't exist",
+    });
+  }
+};
 
 const FindUserByID = async (req, res) => {
-  await UserModel
-    .find({ _id: req.params.id })
+  await UserModel.find({ _id: req.params.id })
     .then((result) => {
       res.status(200).json({
         success: true,
@@ -121,7 +165,6 @@ const FindUserByID = async (req, res) => {
       });
     });
 };
-
 
 const generateTokens = async (user) => {
   let returnValue;
@@ -148,8 +191,6 @@ const generateTokens = async (user) => {
   return returnValue;
 };
 
-
-
 const LoggedUser = async (req, res) => {
   const token = req.token.userID;
   const findUser = await UserModel.findOne({ _id: token }).exec();
@@ -167,4 +208,12 @@ const LoggedUser = async (req, res) => {
     });
   }
 };
-module.exports = { createUser, loginUser, getAllUsers, LoggedUser , FindUserByID };
+module.exports = {
+  createUser,
+  loginUser,
+  getAllUsers,
+  LoggedUser,
+  FindUserByID,
+  DeleteUserById,
+  FindEmailUser,
+};

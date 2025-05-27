@@ -1,0 +1,33 @@
+.DeactivatedUser{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 150px;
+}
+
+
+.msgDeactivated{
+  color: #000;
+  text-transform: capitalize;
+  text-align: center;
+  padding-top: 5px;
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+
+.failed{
+  margin-top: 15px;
+  border-radius: 5px;
+  background-color: red;
+  text-transform: capitalize;
+  width: 200px;
+}
+
+.success{
+    margin-top: 15px;
+ border-radius: 5px;
+   background-color:  green;
+     text-transform: capitalize;
+}

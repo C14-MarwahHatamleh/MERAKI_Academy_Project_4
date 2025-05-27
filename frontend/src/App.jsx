@@ -21,6 +21,7 @@ import GetAllApps from "./components/GetAllApps/GetAllApps";
 import EditJobPost from "./components/EditJobPost/EditJobPost";
 import GetAllUsers from "./components/GetAllUsers/GetAllUsers";
 import NavigationAdmin from "./components/NavigationAdmin/NavigationAdmin";
+import DeactivatedUser from "./components/DeactivatedUser/DeactivatedUser";
 
 export const userContext = createContext();
 
@@ -87,6 +88,7 @@ const App = () => {
               <Route path="/EditPost" element={<EditJobPost />} />
               <Route path="/GetAllApplications" element={<GetAllApps />} />
               <Route path="/GetAllUsers" element={<GetAllUsers />} />
+              <Route path="/:id/deactivatedUser" element={<DeactivatedUser />} />
 
               {/* <Route path="*" component={Missing} /> */}
             </Routes>
