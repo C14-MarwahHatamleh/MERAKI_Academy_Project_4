@@ -11,9 +11,14 @@ const {
   deleteJobById,
   getJobByFilter,
   getJobBySalary,
+  getAllJobsWithoutFilter,
 } = require("../controllers/jobControllers");
 
-const { applyJob , GetAllApplyJobs , GetApplyJobsById} = require("../controllers/applyControllers");
+const {
+  applyJob,
+  GetAllApplyJobs,
+  GetApplyJobsById,
+} = require("../controllers/applyControllers");
 
 const jobRouter = express.Router();
 
@@ -24,6 +29,8 @@ jobRouter.post(
   createNewJob
 );
 jobRouter.get("/", authMiddlewares, getAllJobs);
+jobRouter.get("/allJobs", authMiddlewares, getAllJobsWithoutFilter);
+
 jobRouter.get("/byId/:id", getJobById);
 jobRouter.get("/search", getJobBySearch);
 jobRouter.get("/filter/:criteria", getJobByFilter);
@@ -54,7 +61,6 @@ jobRouter.get(
   authzMiddlewares("GET-APPLICATIONS"),
   GetAllApplyJobs
 );
-
 
 jobRouter.get(
   "/:id/applications",

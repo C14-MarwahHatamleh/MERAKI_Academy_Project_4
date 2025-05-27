@@ -83,7 +83,7 @@ const getAllJobs = async (req, res) => {
   const limit = req.query.limit;
 
   await jobModel
-    .find()
+    .find({ status: "Active" })
     .populate("applications")
     .populate("comments")
     .sort({ postingDate: "descending" })
@@ -96,6 +96,32 @@ const getAllJobs = async (req, res) => {
       res.status(200).json({
         limit: limit,
         page: page,
+        success: true,
+        message: "All the jobs",
+        totalJobs: result.length,
+        jobs: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+        err: err.message,
+      });
+    });
+};
+
+const getAllJobsWithoutFilter = async (req, res) => {
+  await jobModel
+    .find()
+    .populate("applications")
+    .populate("comments")
+    .sort({ postingDate: "descending" })
+    .lean()
+    // /.skip((page - 1) * limit)
+    //.limit(limit)
+    .then((result) => {
+      res.status(200).json({
         success: true,
         message: "All the jobs",
         totalJobs: result.length,
@@ -139,8 +165,8 @@ const getAllJobs = async (req, res) => {
 // };
 
 const getJobBySearch = async (req, res) => {
-  console.log(req.query.page)
-   const page = (req.query.page) -1
+  console.log(req.query.page);
+  const page = req.query.page - 1;
   const limit = req.query.limit;
   console.log(req);
   await jobModel
@@ -209,26 +235,28 @@ const updateJobById = async (req, res) => {
     experience,
     status,
   } = req.body;
-  console.log(req.params.id, req.body);
   await jobModel
-    .findOneAndUpdate(id, {
-      $set: {
-        title: title,
-        company: company,
-        description: description,
-        responsibilities: responsibilities,
-        qualifications: qualifications,
-        skills: skills,
-        benefits: benefits,
-        typeOfJob: typeOfJob,
-        workingHours: workingHours,
-        salary: salary,
-        locationWork: locationWork,
-        country: country,
-        experience: experience,
-        status: status,
-      },
-    })
+    .findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $set: {
+          title: title,
+          company: company,
+          description: description,
+          responsibilities: responsibilities,
+          qualifications: qualifications,
+          skills: skills,
+          benefits: benefits,
+          typeOfJob: typeOfJob,
+          workingHours: workingHours,
+          salary: salary,
+          locationWork: locationWork,
+          country: country,
+          experience: experience,
+          status: status,
+        },
+      }
+    )
     .then((result) => {
       res.status(200).json({
         success: true,
@@ -247,7 +275,7 @@ const updateJobById = async (req, res) => {
 
 const deleteJobById = async (req, res) => {
   const { id } = req.params.id;
-console.log(req.params.id)
+  console.log(req.params.id);
   await jobModel
     .findOneAndDelete(id)
     .then((result) => {
@@ -292,8 +320,7 @@ const deleteJobByUser = async (req, res) => {
 
 const getJobByFilter = async (req, res) => {
   const page = req.query.page || 1;
-    const limit = req.query.limit || 100;
-
+  const limit = req.query.limit || 100;
 
   console.log(req.params.criteria.toLowerCase());
   await jobModel
@@ -405,4 +432,5 @@ module.exports = {
   deleteJobByUser,
   getJobByFilter,
   getJobBySalary,
+  getAllJobsWithoutFilter,
 };

@@ -16,7 +16,7 @@ const DeletePost = () => {
 
    const getAllJobs = () => {
     axios
-      .get("http://localhost:5000/jobs", {
+      .get("http://localhost:5000/jobs/allJobs", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

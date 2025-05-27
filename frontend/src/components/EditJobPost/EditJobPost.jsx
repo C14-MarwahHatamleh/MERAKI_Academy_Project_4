@@ -30,9 +30,10 @@ const EditJobPost = () => {
   const { id, setID } = useContext(userContext);
   const { posts, setPosts } = useContext(userContext);
 
+console.log(id)
   const getAllJobs = () => {
     axios
-      .get("http://localhost:5000/jobs", {
+      .get("http://localhost:5000/jobs/allJobs", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -72,7 +73,9 @@ const EditJobPost = () => {
 
   useEffect(() => {
     getAllJobs();
-  } , []);
+  }, []);
+
+  
   return (
     <div className="UpdatePostDiv">
       <div class="allPost">
@@ -376,6 +379,25 @@ const EditJobPost = () => {
               });
             }}
           />
+        </div>
+        <div className="Status">
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            onChange={(e) => {
+              SetUpdatePost({
+                ...updatePost,
+                status: e.target.value,
+              });
+            }}
+          >
+            <option selected disabled>
+              Status
+            </option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+            <option value="Closed">Closed</option>
+          </select>
         </div>
         <button type="button" class="btn btn-light btn-md" onClick={UpdateJob}>
           Update a job

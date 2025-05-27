@@ -320,6 +320,25 @@ const AddPost = () => {
           }}
         />
       </div>
+      <div className="Status">
+        <select
+          class="form-select"
+          aria-label="Default select example"
+          onChange={(e) => {
+            SetAddPost({
+              ...addPost,
+              status: e.target.value,
+            });
+          }}
+        >
+          <option selected disabled>
+            Status
+          </option>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+          <option value="Closed">Closed</option>
+        </select>
+      </div>
       <button type="button" class="btn btn-light btn-md" onClick={AddPostJob}>
         Submit
       </button>
