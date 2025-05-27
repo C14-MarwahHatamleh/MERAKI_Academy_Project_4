@@ -34,7 +34,18 @@ const NavigationAdmin = () => {
   const [open, setOpen] = React.useState(false);
 
   const { UID } = useContext(userContext);
-
+  {
+    token
+      ? (arr = [
+          "Add a job",
+          "Edit a job",
+          "Delete a job",
+          "Get All applications ",
+          "Get All users",
+        ])
+      : // eslint-disable-next-line no-unused-vars
+        (arr = ["Home", "Jobs", "Location", "Contact", "Journal"]);
+  }
   const Logout = () => {
     setToken(null);
     localStorage.clear("token");
@@ -48,13 +59,7 @@ const NavigationAdmin = () => {
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List sx={{ anchor: "right" }}>
-        {[
-          "Add a job",
-          "Edit a job",
-          "Delete a job",
-          "Get All applications ",
-          "Get All users",
-        ].map((text, index) => (
+        {arr.map((text, index) => (
           <ListItem key={index} disablePadding>
             <ListItemButton
               id={index}
@@ -73,7 +78,7 @@ const NavigationAdmin = () => {
               }}
             >
               <ListItemIcon>
-                {(index === 0 || index === 1 || index === 2) ? (
+                {index === 0 || index === 1 || index === 2 ? (
                   <WorkIcon />
                 ) : index === 3 ? (
                   <ListAltIcon />
@@ -132,31 +137,45 @@ const NavigationAdmin = () => {
                 </Drawer>
               </div>
             </button>
+            {/* Home", "Jobs", "Location", "Contact", "Journal */}
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
                 <li className="nav-item active ">
-                  <Nav.Link className="nav-link" href="/AddPost">
-                    Add Job
+                  <Nav.Link
+                    className="nav-link"
+                    href={token ? `/AddPost` : `/home`}
+                  >
+                    {token ? `Add Job` : `Home`}
                   </Nav.Link>
                 </li>
                 <li className="nav-item">
-                  <Nav.Link className="nav-link" href="/EditPost">
-                    Edit job
+                  <Nav.Link
+                    className="nav-link"
+                    href={token ? `/EditJob` : `/jobs`}
+                  >
+                    {token ? `Edit job` : `Jobs`}
                   </Nav.Link>
                 </li>
                 <li className="nav-item">
-                  <Nav.Link className="nav-link" href={`/DeletePost`}>
-                    Delete job
+                  <Nav.Link
+                    className="nav-link"
+                    href={token ? `/DeleteJob` : `/location`}
+                  >
+                    {token ? `Delete job` : `Location`}
                   </Nav.Link>
                 </li>
                 <li className="nav-item">
-                  <Nav.Link className="nav-link" href="/GetAllApplications">
-                    Get All Applications
+                  <Nav.Link
+                    className="nav-link"
+                    href={token ? `/GetAllApplications` : `/contact`}
+                  >
+                    {token ? `Get All Applications` : `Contact`}
                   </Nav.Link>
                 </li>
                 <li className="nav-item">
-                  <Nav.Link className="nav-link" href="/GetAllUsers">
-                    Get All Users
+                  <Nav.Link className="nav-link" href= {token ? `/GetAllUsers` : `/journal`}>
+                   {token ? `Get All Users` : `Journal`}
+                    
                   </Nav.Link>
                 </li>
               </ul>

@@ -84,8 +84,8 @@ const App = () => {
               <Route path="/adminPanel" element={<AdminPanel />} />
 
               <Route path="/AddPost" element={<AddPost />} />
-              <Route path="/DeletePost" element={<DeletePost />} />
-              <Route path="/EditPost" element={<EditJobPost />} />
+              <Route path="/DeleteJob" element={<DeletePost />} />
+              <Route path="/EditJob" element={<EditJobPost />} />
               <Route path="/GetAllApplications" element={<GetAllApps />} />
               <Route path="/GetAllUsers" element={<GetAllUsers />} />
               <Route path="/:id/deactivatedUser" element={<DeactivatedUser />} />
