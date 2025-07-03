@@ -25,10 +25,10 @@ app.get("/", (req, res) => {
   res.send("API is running...");
 });
 
-app.use(express.static(path.join(__dirname, "../client/build")));
+app.use(express.static(path.resolve('..', 'client', 'dist')));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('..', 'client', 'dist', 'index.html'));
 });
 
 app.listen(PORT, () => {
