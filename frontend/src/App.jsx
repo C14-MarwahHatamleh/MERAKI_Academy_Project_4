@@ -99,6 +99,7 @@ const App = () => {
           {/* {location.pathname !== "/signup-login" &&<Footer/>}  */}
         </>
       </userContext.Provider>
+      
     </>
   );
 };
